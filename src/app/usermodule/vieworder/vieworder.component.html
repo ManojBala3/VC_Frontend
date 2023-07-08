@@ -1,0 +1,104 @@
+<app-welcome  class="highlight" [route]="vieworder"> </app-welcome>
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css" rel="stylesheet" >
+
+<h5 class="text-center update-heading  my-4">VIEW ALL VISITS</h5>
+
+
+ <!-- navigation header add customer, search, clear start here -->
+
+   <div class="container mt-3">
+    <div class="row d-flex  align-items-center justify-content-around  align-content-center">
+
+
+      <div class="col-2">
+        <button id="addCustomerButton" class="btn btn-success" type="button" (click)="addCustomerButtonClicked()"
+          name="addCustomerButton"> <span> <i class="fa fa-plus"></i></span> Add Visit </button>
+      </div>
+
+     
+      <div class="col-2">
+        <select [(ngModel)]="searchType" (change)="onSearchTypeChange($event)" class="form-control"
+          placeholder="Search Type" id="searchType">
+          <option value="searchType">--Search Type--</option>
+          <option value="name">Customer Name</option>
+          <option value="phonenumber">Phone Number</option>
+          <option value="patientid">Patient ID</option>
+          
+          
+         
+        </select>
+      </div>
+      <div class="col-2">
+        <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue"
+          placeholder="Search Value" class="form-control" />
+      </div>
+
+      <div class="col-3">
+        <button [disabled]="isSearchButtonDisabled" type="button" (click)="searchVisits()" class="btn btn-primary">
+          <span> <i class="fa fa-search"></i></span> Search </button>
+          &nbsp;&nbsp;&nbsp;
+        <button type="button" (click)="clearSearchCustomers()" class="btn btn-secondary"> <span> <i
+              class="fa fa-remove"></i></span> Clear </button>
+      </div>
+      <div class="col-2 ">
+        <button id="totalCustomers" class="btn btn-info" type="button" name="totalCustomers"> Total Visits: <span
+            class="badge rounded-pill text-bg-dark">{{totalOrders}} </span></button>
+      </div>
+    </div>
+
+  </div> 
+
+  <!-- navigation header add customer, search, clear end here -->
+
+
+
+
+<!-- order data tables display here -->
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="table-responsive">
+      <table id="example1" class="table table-striped" style="width:100%">
+        <thead class="table-header">
+          <tr>
+
+            <td>Patient ID</td>
+            <td>Patient Name</td>
+            <td>Phone Number <span><i class="fa fa-phone"></i></span></td>
+            <td>Visit Date <span><i class="fa fa-calendar"></i></span></td>
+            <td>Gender</td>
+            <td>Age</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of ordersList | paginate: { itemsPerPage: 10, currentPage: currentPageNumber, totalItems: totalOrders };let i=index;">
+              <td data-label="Order Id">{{order.custid}}</td>
+            <td data-label="Order Id">{{order.customer_name}}</td>
+            <td data-label="Order Date">{{order.mobile_no}}</td>
+            <td data-label="Order Status">{{order.visitdate}}</td>
+            <td data-label="Order Value">{{order.gender}}</td>
+            <td data-label="Customer ID">{{order.age}}</td>
+            
+            <td class="d-flex">
+              <button type="button" (click)="viewOrder(order.visit_id, 'view')" class="btn btn-sm btn-success" style=" margin-left: 20%; " data-toggle="tooltip" data-placement="right" title="Edit"><span> <i class="fa fa-eye"></i></span> </button>
+              &nbsp;&nbsp;  &nbsp;&nbsp; 
+              <button type="button" (click)="downloadFullInvoice(order.visit_id)" class="btn btn-sm btn-info" ><span> <i class="fa fa-download" data-toggle="tooltip" data-placement="right" title="Download"></i></span> </button>
+              &nbsp;&nbsp;  &nbsp;&nbsp; 
+              <button type="button" (click)="updateOrder(order.visit_id)" class="btn btn-sm btn-warning"  data-toggle="tooltip" data-placement="right" title="Edit"><span> <i class="fa fa-edit"></i></span> </button>
+              &nbsp;&nbsp;  &nbsp;&nbsp;  
+              <button type="button" (click)="deleteVisit(order.visit_id)" class="btn btn-sm btn-danger"  data-toggle="tooltip" data-placement="right" title="Delete"><span> <i class="fa fa-trash"></i></span> </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div><pagination-controls (pageChange)="onViewCustomerPaginationPageChange($event)"></pagination-controls></div>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>
+
+<!-- order data tables end here -->

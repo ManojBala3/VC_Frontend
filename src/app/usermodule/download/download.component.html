@@ -1,0 +1,55 @@
+<app-welcome [route]="download">
+</app-welcome>
+
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  </head>
+  <br>
+  <div class="container">
+  <body ng-controller="studentController" class="container" > <br />
+    
+  <form [formGroup]="searchform" role="form"><br><br>
+    <h3>Download Pending List</h3>
+      <div class="form-group">
+          <div class="col-2">
+               <label for="to" >Assembly Name</label>
+               <select formControlName="assembly" class="form-control" id="assembly" (change)='assemblyChange($event)'>  
+                  <option *ngFor="let assemblyName of assemblyNamesList" [selected]="assemblyName == true" 
+                  value={{assemblyName}}>{{assemblyName}}</option>  
+              </select>  
+          </div>
+          <div class="col-2">
+            <label for="to" >Taluk Name</label>
+            <select formControlName="taluk" class="form-control" id="taluk" (change)='talukChange($event)'>  
+               <option *ngFor="let talukName of talukNamesList" [selected]="talukName == true"
+               value={{talukName}}>{{talukName}}</option>  
+           </select>  
+       </div>
+       <div class="col-2">
+        <label for="to" >Village Name</label>
+        <select formControlName="village" class="form-control" id="village" (change)='villageChange($event)'>  
+           <option *ngFor="let villageName of villageNamesList" [selected]="villageName == true" 
+           value={{villageName}}>{{villageName}}</option>  
+       </select>  
+   </div>
+   <div class="col-2">
+    <label for="to" >FPS Name</label>
+    <select formControlName="fps" class="form-control" id="fps">  
+       <option *ngFor="let fpsName of fpsNamesList" [selected]="fpsName == true" 
+       value={{fpsName}}>{{fpsName}}</option>  
+   </select>  
+     <button type="button"class="btn btn-success"  (click)="downloadMethod()" 
+      name="download"><span>Download</span></button>
+</div>
+      </div>
+  <br>
+      <div  *ngIf=showerror style="color: orangered;text-align: center;font-size: x-large;">{{errormsg}}</div>
+      <div  *ngIf=showmesssage style="color: greenyellow;text-align: center;font-size: x-large;">{{message}}</div>
+  <br>
+  </form>
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise"> 
+     <p style="color: white">loading...</p>  </ngx-spinner>
+  </body></div>
+  

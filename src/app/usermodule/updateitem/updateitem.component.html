@@ -1,0 +1,32 @@
+<app-welcome [route]="updateitem"> </app-welcome>
+
+  <!--  add customer form page start-->
+  <div class="container  my-3">
+    <div class="row ">
+      <h5 class="text-center update-heading  my-4">UPDATE ITEM</h5>
+      <form [formGroup]="itemForm" role="form">
+        <div class="row d-flex justify-content-center ">
+          <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <div class="form">
+                <label for="itemId">Item ID</label>
+                <input type="text" id="itemId" [(ngModel)]="itemId" name="itemId" placeholder=""
+                  class="form-control" formControlName="itemId" required>
+              </div>
+            <div class="form">
+              <label for="itemname">Item Name</label>
+              <input type="text" id="itemName" [(ngModel)]="itemName" name="itemName" placeholder=""
+                class="form-control" formControlName="itemName" required>
+            </div>
+           <div class="d-flex justify-content-center form mt-3">
+          <button type="button" (click)="backToListItem()" class="btn btn-secondary ">
+            <span> <i class="fa fa-arrow-left"></i></span>
+            Back</button> &nbsp;&nbsp;
+          <button class="btn btn-warning" type="button" (click)="updateItem()"
+            name="addcustomer"><span><span> <i class="fa fa-refresh"></i></span> Update</span></button>
+           </div>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>

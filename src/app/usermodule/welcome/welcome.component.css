@@ -1,0 +1,140 @@
+/* .nav-link, .navbar-brand{
+  color:#2009f3;
+  font-weight: bold;
+  font-size: 1rem;
+}
+*/
+
+.navbar-nav .nav-link.active, .navbar-nav .show>.nav-link{
+  font-weight: 900; 
+  
+} 
+
+
+
+*{
+  color: black;
+}
+
+body {
+  background: #7B1FA2
+}
+
+svg {
+  font-family: 'Russo One', sans-serif;
+  position: absolute; 
+  width: 33%; height: 100%;
+  top: 0px;
+  right: 34%;
+}
+svg text {
+  text-transform: uppercase;
+  animation: stroke 3s infinite alternate;
+  stroke-width: 2;
+  stroke: crimson;
+  font-size: 140px;
+  
+}
+@keyframes stroke {
+  0%   {
+    fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1);
+    stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2;
+  }
+  70%  {fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1); }
+  80%  {fill: rgba(72,138,20,0); stroke: rgba(54,95,160,1); stroke-width: 3; }
+  100% {
+    fill: rgba(72,138,204,1); stroke: rgba(54,95,160,0); 
+    stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 0;
+  }
+}
+.fontClass{
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  color: white;
+  font-size: 20px;
+}
+.menuNav{
+  width:100%;
+  margin-left:50px;
+  margin-right:50px;
+  
+}
+
+.navbar-nav{
+  justify-content: end; 
+
+}
+
+.menu{
+  justify-content: center; 
+}
+
+.nav-item
+{
+  font-size: medium;
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+}
+.menu{
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.menu-3{
+  background: #7B1FA2;
+}
+.menu ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.menu li{
+  display: inline-block;
+  margin: 0 15px;
+}
+.menu a{
+  font-size: 19px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  position: relative;
+  padding: 4px 0;
+}
+.menu a::before{
+  content: "";
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+  transition: 0.5s transform ease;
+  transform: scale3d(0,1,1);
+  transform-origin: 0 50%;
+}
+.menu a:hover::before{
+  transform: scale3d(1,1,1);
+}
+
+.menu-3 a::before{
+  transform-origin: 50% 50%;
+  background: #F06292;
+}
+
+.logout a{
+  color: white;
+}
+
+.logout {
+
+  margin-top: revert;
+}
+
+
+
+
+

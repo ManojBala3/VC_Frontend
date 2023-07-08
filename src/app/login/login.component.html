@@ -1,0 +1,23 @@
+    <form [formGroup]="loginform" >
+        <h3>Login Here</h3>
+        <br>
+     <!-- <label for="username">Username</label> -->
+        <input type="text" placeholder="User Name" #user id="username" (keydown.space)="$event.preventDefault();" formControlName="email" required>
+        <div *ngIf="loginform.controls['email'].invalid && (loginform.controls['email'].dirty || loginform.controls['email'].touched)" class="alert">
+            
+            <div *ngIf="loginform.controls['email'].errors">Please enter valid User Name</div>
+        </div>
+
+        <!-- <label for="password">Password</label> -->
+        <input type="password" placeholder="Password" #pass id="password" (keydown.space)="$event.preventDefault();" formControlName="password" required>
+        <div *ngIf="loginform.controls['password'].invalid && (loginform.controls['password'].dirty || loginform.controls['password'].touched)" class="alert">
+            
+        </div>
+
+       <div class="login">
+		    <button type="button" (click)="loginbtn(user.value,pass.value)" name="login" [disabled]="loginform.invalid" ><span>Log In</span></button>
+		</div>
+		<!-- <button name="register" name="regbtn" (click)="regbtn()" type="button"><span>Register</span></button> -->
+       
+		<div  *ngIf=showerror><label for="error"  style="color: red;text-align: center;">{{errormsg}}</label></div>
+    </form>
