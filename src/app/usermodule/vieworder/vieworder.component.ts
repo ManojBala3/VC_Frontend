@@ -50,6 +50,27 @@ export class VieworderComponent implements OnInit {
       {
         let list =(<any>response).common;
         this.ordersList = list;
+        for(let data of this.ordersList)
+        {
+         var value="";
+         if(data['age_year']!=null && data['age_year']!=0)
+         {
+          value=value+data['age_year']+'Y'+" ";
+         }
+         if(data['age_month']!=null && data['age_month']!=0)
+         {
+          value=value+data['age_month']+'M'+" ";
+         }
+         if(data['age_week']!=null && data['age_week']!=0)
+         {
+          value=value+data['age_week']+'W'+" ";
+         }
+         if(data['age_day']!=null && data['age_day']!=0)
+         {
+          value=value+data['age_day']+'D'+" ";
+         }
+         data['age']=value;
+        }
         this.totalOrders = (<any>response).totalcount;
         this.loader.hide();
       }

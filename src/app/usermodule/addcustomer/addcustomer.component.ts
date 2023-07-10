@@ -267,7 +267,7 @@ export class AddcustomerComponent implements OnInit {
           this.toastr.success(
             'Customer Registeration Success!'
           );
-          
+          this.getAllCustomers();
         }
         else{
           this.loader.hide();
