@@ -16,13 +16,15 @@ export class UpdateitemComponent implements OnInit {
   itemId: any;
   itemPrice: any;
   itemName: any;
+  medicinetype:any;
   itemForm: UntypedFormGroup;
+  medtype:any=['TABLETS','SYRUPS & DROPS','OINTMENTS/SOLUTIONS'];
 
   constructor(private router: Router, private route: ActivatedRoute, private httpservice:HttpserviceService, private toastr: ToastrService,private loader:NgxSpinnerService) { 
     this.itemForm = new UntypedFormGroup({
       itemId: new UntypedFormControl('', [Validators.required]),
       itemName: new UntypedFormControl('', [Validators.required]),
-      itemPrice: new UntypedFormControl(['', Validators.required]),
+      medicinetype: new UntypedFormControl('', [Validators.required])
     });
   }
 
@@ -43,6 +45,7 @@ export class UpdateitemComponent implements OnInit {
               console.log(response);
               let list = (<any>response).meddata;
               this.itemName = list.medicinename;
+              this.medicinetype=list.medicinetype;
               this.loader.hide();
        })
   }
@@ -60,6 +63,7 @@ export class UpdateitemComponent implements OnInit {
         let data = {
           "medid": this.itemId,
           "medicinename":this.itemName,
+          "medicinetype":this.itemForm.value['medicinetype']
         }
         let savedData;
         this.httpservice.updateItem(this.itemId, data).subscribe(

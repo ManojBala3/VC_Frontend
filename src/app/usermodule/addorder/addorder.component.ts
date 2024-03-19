@@ -26,8 +26,8 @@ export class AddorderComponent implements OnInit {
   
   totalCustomers: any
   orderForm!: FormGroup;
-  listmedicine = [];
-
+  listmedicine:any = [];
+  searchresponse!: Map<any, any>;
   clickedAddOrderButton: boolean = false
   customersList: any
   searchType: any = "searchType";
@@ -265,7 +265,10 @@ createProduct():FormGroup{
     this.orderForm.controls['weight'].setValue(0);
     this.orderForm.controls['hc'].setValue(0);
     this.orderForm.controls['customername'].enable();
-    this.orderForm.controls['customerage'].enable();
+    this.orderForm.controls['customeragemonth'].enable();
+    this.orderForm.controls['customerageweek'].enable();
+    this.orderForm.controls['customerageyear'].enable();
+    this.orderForm.controls['customerageday'].enable();
     this.orderForm.controls['customergender'].enable();
     this.orderForm.controls['customermobile'].enable();
     this.orderForm.controls['customeremail'].enable();
@@ -388,10 +391,10 @@ createProduct():FormGroup{
    
     let lastClone: any = this.products.controls? this.products.controls[id]: '';
     var value=lastClone.get('drugname').value;
-    console.log(value.length);
     if(value==null || value=="" || value.length<4)
     {
       //this.toastr.error('Kindly enter some value to search', 'Error');
+      this.listmedicine=[];
       return;
     }
     
@@ -400,8 +403,16 @@ createProduct():FormGroup{
        
         console.log(response)
         if (response.respcode=='00' ) {
-          this.listmedicine=response.common;
-        } else {         
+          let myMap = new Map();
+          for ( let data of (response.common) )
+          {
+            myMap.set(data.medicinename,data.medicinetype);
+          }
+          this.searchresponse=myMap;
+           this.listmedicine =Array.from(myMap.keys());
+  
+        } else {  
+          this.listmedicine=[]; 
         }
         this.loader.hide();
         return this.listmedicine;
@@ -458,6 +469,31 @@ createProduct():FormGroup{
       return false;
     }
     
+  }
+
+  setmedicinetype(id:any)
+  {
+    console.log(id);
+    let lastClone: any = this.products.controls? this.products.controls[id]: '';
+    var value=lastClone.get('drugname').value;
+    if(value!='' && this.searchresponse!=null)
+    {
+      if(this.searchresponse.get(value)!=null)
+      { 
+        console.log(this.searchresponse.get(value));
+        if(this.searchresponse.get(value)=="TABLETS")
+        {
+          lastClone.get('medtype').setValue('tablet');
+        }else if(this.searchresponse.get(value)=="OINTMENTS/SOLUTIONS"){
+          lastClone.get('medtype').setValue('others');
+        }
+        else if(this.searchresponse.get(value)=="SYRUPS & DROPS"){
+          lastClone.get('medtype').setValue('drops');
+        }
+        
+      }
+    }
+
   }
 
 }

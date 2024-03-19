@@ -150,11 +150,14 @@ export class ViewitemComponent implements OnInit {
 }
 
 getAllItemsPagination(limit: any, offset: any) {
+  this.loader.show();
   this.httpservice.getAllItems(limit, offset).subscribe((response: any) => {
+    
     console.log('get all method...');
     console.log(response);
     let list = (<any>response).medresponse;
     this.itemsList = list;
+    this.loader.hide();
   });
 }
 

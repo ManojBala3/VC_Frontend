@@ -207,8 +207,8 @@
             </div>
               
             <div class="col-md-2">
-              <input formControlName='drugname' id="{{'dname'+i}}" type="text" class="form-control"  placeholder="Drug Name" value="" list="listmedicine" (keydown)=searchmedicine(i)/>
-              <datalist id="listmedicine">
+              <input formControlName='drugname' id="{{'dname'+i}}" type="text" class="form-control"  placeholder="Drug Name" value="" list="listmedicine" (keydown)=searchmedicine(i) (change)=setmedicinetype(i)/>
+              <datalist id="listmedicine" >
                 <option *ngFor="let method of listmedicine" [value]="method"></option>
               </datalist>
             </div>  

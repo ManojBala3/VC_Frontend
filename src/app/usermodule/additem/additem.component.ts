@@ -15,11 +15,14 @@ export class AdditemComponent implements OnInit {
   additem = 'additem';
   itemPrice: any;
   itemName: any;
+  medicinetype:any;
   itemForm: UntypedFormGroup;
+  medtype:any=['TABLETS','SYRUPS & DROPS','OINTMENTS/SOLUTIONS'];
 
   constructor(private router: Router, private httpservice:HttpserviceService, private toastr: ToastrService, private loader:NgxSpinnerService) { 
     this.itemForm = new UntypedFormGroup({
       itemName: new UntypedFormControl('', [Validators.required]),
+      medicinetype: new UntypedFormControl('', [Validators.required]),
     });
   }
 
@@ -44,6 +47,7 @@ export class AdditemComponent implements OnInit {
 
     let data = {
       medicinename: this.itemName,
+      medicinetype: this.itemForm.value['medicinetype']
     }
    this.loader.show();
     let savedData;

@@ -12,10 +12,19 @@
                 <input type="text" id="itemId" [(ngModel)]="itemId" name="itemId" placeholder=""
                   class="form-control" formControlName="itemId" required>
               </div>
+              <br>
             <div class="form">
               <label for="itemname">Item Name</label>
               <input type="text" id="itemName" [(ngModel)]="itemName" name="itemName" placeholder=""
                 class="form-control" formControlName="itemName" required>
+            </div>
+            <br>
+            <div class="form">
+              <label for="medicinetype">Medicine type</label>
+              <select class="form-control" id="medicinetype"  name="medicinetype" formControlName="medicinetype" [(ngModel)]="medicinetype">
+                  <option value="" disabled selected>--Select Medicine Type--</option>
+                <option *ngFor="let method of medtype" [value]="method"> {{method}}</option>
+              </select>
             </div>
            <div class="d-flex justify-content-center form mt-3">
           <button type="button" (click)="backToListItem()" class="btn btn-secondary ">

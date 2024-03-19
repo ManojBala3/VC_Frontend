@@ -9,12 +9,11 @@ import { Subject } from 'rxjs';
 export class HttpserviceService {
  
 
-  //  public userbaseurl="http://3.135.185.40:9090/USERAPI";
-  //  public flightbaseurl="http://3.135.185.40:9090/FLIGHTAPI";
+
 
      public local="http://localhost:8080";
      public server="http://13.211.212.250:8080/VC";
-   public finalurl:any=this.local;
+   public finalurl:any=this.server;
    public omsurl = this.server;
 
   constructor(private http: HttpClient ) { }
@@ -121,7 +120,7 @@ export class HttpserviceService {
 
 
   createItem(data: any){
-    return this.http.post(this.omsurl + "/medicine/savecustomer", data).pipe(
+    return this.http.post(this.omsurl + "/medicine/save", data).pipe(
       tap(() => {
         this.Refreshrequired.next();
       })

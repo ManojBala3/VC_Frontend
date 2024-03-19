@@ -105,12 +105,21 @@ export class AddcustomerComponent implements OnInit {
     this.httpservice.getAllCustomer(this.limit, this.offset).subscribe((response: any) => {
       console.log('get all method...');
       console.log(response);
-      let list = (<any>response).response;
-      this.customersList = list;
-
-      console.log(this.customersList.length);
-      this.totalCustomers = response.totalcount;
-      this.loader.hide();
+      if(response.respcode=='00')
+      {
+        let list = (<any>response).response;
+        this.customersList = list;
+  
+        
+        console.log(this.customersList.length);
+        this.totalCustomers = response.totalcount;
+        this.loader.hide();
+      }
+      else{
+        this.loader.hide();
+        this.toastr.error(response.respdesc , 'Error!');
+      }
+     
     },
     (err) => {
       this.loader.hide();
