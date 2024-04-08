@@ -25,7 +25,7 @@ form{
     border: 2px solid rgba(255,255,255,0.1);
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 50px 35px;
-	background-color: rgb(21, 107, 13);
+	background-color: #7B1FA2;
 	
 }
 form *{
@@ -54,7 +54,7 @@ input{
     height: 50px;
     width: 100%;
     background-color: rgba(255,255,255,0.07);
-    border-radius: 3px;
+    border-radius: 5px;
     padding: 0 10px;
     margin-top: 8px;
     font-size: 14px;
@@ -95,6 +95,7 @@ input.ng-dirty.ng-invalid {
   {
     color: chartreuse !important;
     font-size: 13px;
+    height: 10px;
   }
 
 

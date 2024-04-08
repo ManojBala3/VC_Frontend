@@ -3,6 +3,8 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { Router } from '@angular/router';
 import { SharingserviceService } from '../commonservices/sharingservice.service';
 import { HttpserviceService } from '../httpservice.service';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit {
  
 
   constructor(
-    private route: Router,private sharingservice: SharingserviceService,private httpservice:HttpserviceService) { 
+    private route: Router,private sharingservice: SharingserviceService,private httpservice:HttpserviceService,private toastr: ToastrService,private loader:NgxSpinnerService) { 
 
     this.loginform=new UntypedFormGroup({
        
@@ -32,7 +34,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.clear();
   }
+  
 
   loginbtn(username:String,password:String)
   {
@@ -49,30 +53,34 @@ export class LoginComponent implements OnInit {
       this.errormsg="Password cannot be empty";
       return;
     }
-    let data={"userName":username,"password":password};
+    let data={"username":username,"userpassword":password};
     console.log(data)
-    // this.httpservice.checklogin(data).subscribe(response=>{
-    //   console.log("response",response);
-    //   let data:any=response;
-    //   this.sharingservice.isAdmin = false;
-    //   if(data["userRole"] == "admin" && data["authorized"]==true){
-    //     this.sharingservice.isAdmin = true;
-    //   }
-    //   if(data["authorized"]==true)
-    //   {
-    //     this.sharingservice.setusername(username);
-    //     this.route.navigate(['/user/search']);
-    //   }
-    //   else{
-    //     this.errormsg="Invalid user"
-    //     this.showerror=true;
-    //   }
-    // });
-    
-    if(username=="VC001" && password == "vc@789"){
-    this.sharingservice.setusername(username);
-    this.route.navigate(['/user/addcustomer']);
+    this.httpservice.checklogin(data).subscribe(response=>{
+      this.loader.show();
+      console.log("response",response);
+      let data:any=response;
+      let common:any=data['common'];
+      this.sharingservice.isAdmin = false;
+      if(data['respcode']=='00')
+      {
+        localStorage.setItem('username',username+"");
+        localStorage.setItem('userrole',common['role']+"");
+        this.loader.hide();
+        this.route.navigate(['/user/viewqueue']);
+      }
+      else{
+        this.loader.hide();
+        this.errormsg="Invalid user"
+        this.showerror=true;
+      }
     }
+    ,
+      (err) => {
+        this.loader.hide();
+        this.loginform.reset();
+        console.log('Error caught at Subscriber ' + err);
+        this.toastr.error('Server Error ! Kindly try after sometime', '');
+      });
     
   }
 }

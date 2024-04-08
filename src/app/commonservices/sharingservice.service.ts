@@ -9,6 +9,7 @@ export class SharingserviceService {
 
   
   private username:any;
+  private backbuton:any;
 
   private _isAdmin: boolean = false;
   
@@ -28,6 +29,16 @@ export class SharingserviceService {
   getusername()
   {
     return this.username;
+  }
+
+  setbackbutton(value:any)
+  {
+    this.backbuton=value;
+  }
+
+  getbackbutton()
+  {
+    return this.backbuton;
   }
   
 

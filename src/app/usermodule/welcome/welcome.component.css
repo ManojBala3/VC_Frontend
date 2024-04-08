@@ -10,7 +10,9 @@
   
 } 
 
-
+.adjust{
+padding-top: 0.5%;
+}
 
 *{
   color: black;
@@ -34,6 +36,12 @@ svg text {
   stroke: crimson;
   font-size: 140px;
   
+}
+img {
+ 
+width: 200px;
+height: 100px;
+ 
 }
 @keyframes stroke {
   0%   {

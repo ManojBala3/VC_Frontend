@@ -8,23 +8,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { SearchComponent } from './search/search.component';
-import { CustomersearchComponent } from './customersearch/customersearch.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { DownloadComponent } from './download/download.component';
-import { AddcustomerComponent } from './addcustomer/addcustomer.component';
-import { UpdatecustomerComponent } from './updatecustomer/updatecustomer.component';
-import { AddorderComponent } from './addorder/addorder.component';
-import { VieworderComponent } from './vieworder/vieworder.component';
-import { UpdateorderComponent } from './updateorder/updateorder.component';
-import { AdditemComponent } from './additem/additem.component';
-import { ViewitemComponent } from './viewitem/viewitem.component';
-import { UpdateitemComponent } from './updateitem/updateitem.component';
+import { AddPatientComponent } from './addpatient/addpatient.component';
+import { UpdatePatientComponent } from './updatepatient/updatepatient.component';
+import { AddVisitComponent } from './addvisit/addvisit.component';
+import { ViewVisitComponent } from './viewVisit/viewvisit.component';
+import { UpdateVisitComponent } from './updatevisit/updatevisit.component';
+import { AddMedicineComponent } from './addmedicine/addmedicine.component';
+import { ViewMedicineComponent } from './viewmedicine/viewmedicine.component';
+import { UpdateMedicineComponent } from './updatemedicine/updatemedicine.component';
+import { ViewqueueComponent } from './viewqueue/viewqueue.component';
+import { ViewuserComponent } from './viewuser/viewuser.component';
+import { AdduserComponent } from './adduser/adduser.component';
 
 @NgModule({
   declarations: 
-  [WelcomeComponent,SearchComponent,CustomersearchComponent, DownloadComponent,AddcustomerComponent,
-    UpdatecustomerComponent, AddorderComponent, VieworderComponent, UpdateorderComponent, AdditemComponent, ViewitemComponent, UpdateitemComponent],
+  [WelcomeComponent,AddPatientComponent,
+    UpdatePatientComponent, AddVisitComponent, ViewVisitComponent, UpdateVisitComponent, AddMedicineComponent, ViewMedicineComponent, UpdateMedicineComponent, ViewqueueComponent, ViewuserComponent, AdduserComponent],
   imports: [
     CommonModule,
     UsermoduleRoutingModule,

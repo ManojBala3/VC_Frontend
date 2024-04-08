@@ -1,40 +1,40 @@
 <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 <div style="background-color: #7B1FA2;">
   <nav  class="navbar navbar-expand-lg bg-body-tertiary mx-lg-5 mx-md-5 ">
     <div class="menuNav">
       <div class="row">
+        
         <div class="col-lg-3">
-          <a  class="navbar-brand nav-link pb-4 p-3 units fontClass" href="#" routerLink="/user/addcustomer">
-            <!-- <svg viewBox="0 0 1320 300">
-              <text x="50%" y="50%" dy=".35em" text-anchor="middle">
-                Venba Clinic
-              </text>
-            </svg>   -->
-            Venba Clinic
+          <a  class="navbar-brand nav-link pb-4 p-3 units fontClass" href="#" routerLink="/user/addpatient">
+            <!-- <img src="/assets/images/download.gif" alt="Your Logo" /> -->
+            Venba Children's Clinic
           </a>
         </div>
-        <div class="col-lg-6 menu menu-3" >
+        <div class="col-lg-6 menu menu-3 adjust" >
           <ul class="navbar-nav me-auto pt-2 menu">
+
+            <li class="nav-item" >
+              <a id="viewqueue" class="nav-link " [ngClass]="{'active': route === 'viewqueue'}"
+                routerLink="/user/viewqueue">Queue</a>
+            </li>
       
             <li class="nav-item">
-              <a id="addcustomer" class="nav-link " [ngClass]="{'active': route === 'addcustomer'}"
-                routerLink="/user/addcustomer">Patient</a>
+              <a id="addcustomer" class="nav-link " [ngClass]="{'active': route === 'addpatient'}"
+                routerLink="/user/addpatient">Patient</a>
             </li>
             <li class="nav-item">
-              <a id="vieworder" class="nav-link" [ngClass]="{'active': route === 'vieworder'}"
-                routerLink="/user/vieworder" >Visits </a>
+              <a id="vieworder" class="nav-link" [ngClass]="{'active': route === 'viewvisit'}"
+                routerLink="/user/viewvisit" >Visits </a>
             </li>
             <li class="nav-item">
-              <a id="viewitem" class="nav-link" [ngClass]="{'active': route === 'viewitem'}"
-                routerLink="/user/viewitem" >Medicine</a>
+              <a id="viewitem" class="nav-link" [ngClass]="{'active': route === 'viewmedicine'}"
+                routerLink="/user/viewmedicine" >Medicine</a>
             </li>
-    
-    
-            <li *ngIf="isAdmin" class="nav-item">
-              <a id="search" class="nav-link" [ngClass]="{'active': route === 'download'}"
-                routerLink="/user/download">Download
-              </a>
+            <li class="nav-item" *ngIf="isAdmin">
+              <a id="viewitem" class="nav-link" [ngClass]="{'active': route === 'user'}"
+                routerLink="/user/viewuser"  >USER</a>
             </li>
           </ul>
           </div>

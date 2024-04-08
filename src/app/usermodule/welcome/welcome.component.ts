@@ -21,14 +21,20 @@ export class WelcomeComponent implements OnInit{
   ngOnInit(): void 
   {
    console.log(this.route);
-    if(this.sharingservice.getusername()!=null && this.sharingservice.getusername()!="")
+   
+    if(localStorage.getItem('username')!=null && localStorage.getItem('username')!="")
     {
       this.showuser=true;
-      this.username=this.sharingservice.getusername();
+      this.username=localStorage.getItem('username');
       
     }
+    console.log('user is ',localStorage.getItem('userrole'));
+    if(localStorage.getItem('userrole')!=null && localStorage.getItem('userrole')=='Admin')
+    {
+      console.log('user is admin');
+      this.isAdmin = true;
+    }
     
-    this.isAdmin = this.sharingservice.isAdmin ? this.sharingservice.isAdmin : false;
   }
 
 }

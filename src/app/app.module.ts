@@ -5,7 +5,6 @@ import {  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
-import { SearchComponent } from './usermodule/search/search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { WelcomeComponent } from './usermodule/welcome/welcome.component';
@@ -15,9 +14,8 @@ import { TokenInterceptorService } from './commonservices/token-interceptor.serv
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { DownloadComponent } from './usermodule/download/download.component';
-import { AddcustomerComponent } from './usermodule/addcustomer/addcustomer.component';
-import { UpdatecustomerComponent } from './usermodule/updatecustomer/updatecustomer.component';
+import { AddPatientComponent } from './usermodule/addpatient/addpatient.component';
+import { UpdatePatientComponent } from './usermodule/updatepatient/updatepatient.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SpinnerComponent } from './commonservices/spinner/spinner.component';
 import { LoadingInterceptor } from './commonservices/loading.interceptor';
@@ -43,7 +41,11 @@ import { LoadingInterceptor } from './commonservices/loading.interceptor';
      NgxPaginationModule,
      BrowserAnimationsModule,
      NgxPaginationModule,
-     ToastrModule.forRoot()
+     ToastrModule.forRoot({
+      timeOut: 3500,
+      positionClass: 'toast-bottom-center',
+      preventDuplicates: true,
+}),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }  ],

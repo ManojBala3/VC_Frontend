@@ -11,10 +11,9 @@ export class HttpserviceService {
 
 
 
-     public local="http://localhost:8080";
-     public server="http://13.211.212.250:8080/VC";
-   public finalurl:any=this.server;
-   public omsurl = this.server;
+  public local="http://localhost:8080";
+  public server="http://13.211.212.250:8080/VC";
+  public omsurl = this.local;
 
   constructor(private http: HttpClient ) { }
 
@@ -73,6 +72,10 @@ export class HttpserviceService {
    );
  }
 
+ checklogin(data: any){
+  return this.http.post(this.omsurl + "/user/verifyuser" , data);
+ }
+
  updateOrder(data: any){
   return this.http.post(this.omsurl + "/visit/updateprescrption" , data);
  }
@@ -80,6 +83,10 @@ export class HttpserviceService {
  getAllOrders(limit: any, offset: any){
    return this.http.get(this.omsurl + "/visit/getdata?limit="+limit+"&offset="+offset);
  }
+
+ getAllQueueOrders(limit: any, offset: any){
+  return this.http.get(this.omsurl + "/queue/getdata?limit="+limit+"&offset="+offset);
+}
 
 
 
@@ -106,6 +113,10 @@ export class HttpserviceService {
     return this.http.post(this.omsurl +'/visit/searchvisit?&limit='+limit+"&offset="+offset,data);
  }
 
+ searchQueuevisits(data: any,limit: any, offset: any){
+  return this.http.post(this.omsurl +'/queue/searchvisit?&limit='+limit+"&offset="+offset,data);
+}
+
  getviewupdatevisit(data: any){
   return this.http.get(this.omsurl +'/visit/getfullvistdetails/'+data);
 }
@@ -126,13 +137,32 @@ export class HttpserviceService {
       })
     );
   }
+  createUser(data: any){
+    return this.http.post(this.omsurl + "/user/saveuser", data).pipe(
+      tap(() => {
+        this.Refreshrequired.next();
+      })
+    );
+  }
 
   getAllItems(limit: any, offset: any){
     return this.http.get(this.omsurl + "/medicine/getdata?limit="+limit+"&offset="+offset);
   }
 
+  getAllusers(limit: any, offset: any){
+    return this.http.get(this.omsurl + "/user/getalluser?limit="+limit+"&offset="+offset);
+  }
+
   deleteItem(id: any){
     return this.http.get( this.omsurl + "/medicine/deletecustomer/" + id ).pipe(
+      tap(() => {
+        this.Refreshrequired.next();
+      })
+    );
+  }
+
+  deleteUser(id: any){
+    return this.http.get( this.omsurl + "/user/delete/" + id ).pipe(
       tap(() => {
         this.Refreshrequired.next();
       })
@@ -159,56 +189,10 @@ export class HttpserviceService {
       return this.http.get(this.omsurl +'/medicine/searchmedicine/'+data);
     }
 
-  Login(data:any)
-  {
-    return this.http.post(this.finalurl+"/authenticate",data);
-  }
-
-  fetch (data:any)
-  {
-    return this.http.get(this.finalurl+"/api/dataentry/getData?smartCardNumber="+data);
-  }
-
-  updatephoneno(data:any)
-  {
-    return this.http.post(this.finalurl+"/api/dataentry/updateData",data);
-  }
-
-  fetchcount()
-  {
-    return this.http.get(this.finalurl+"/api/dataentry/getUpdatedCount");
-  }
-
-  fetchallrecords(data:any)
-  {
-    return this.http.post(this.finalurl+"/api/dataentry/getallrecords",data);
-  }
-
-  searchrecords(data:any)
-  {
-    return this.http.post(this.finalurl+"/api/dataentry/searchByType",data);
-  }
-
-  checklogin(data:any)
-  {
-    return this.http.post(this.finalurl+"/api/dataentry/login/getLoginDetails",data);
-  }
-  searchAssemblyNamesList() {
-    return this.http.get(this.finalurl+"/api/pdf/loadDropDownValues");
-  }
   
-  searchFpsNamesList(data:any) {
-    return this.http.post(this.finalurl+"/api/pdf/searchFpsNamesList", data);
-  }
-  searchVillageList(data:any) {
-    return this.http.post(this.finalurl+"/api/pdf/searchVillageList", data);
-  }
-  searchTalukNamesList(data:any) {
-    return this.http.post(this.finalurl+"/api/pdf/searchTalukNamesList", data);
-  }
-  downloadPDF(data: any) {
-    return this.http.post(this.finalurl+"/api/pdf/download", data, {responseType: 'blob'});
-  }
+
+
+  
 
 }
 
