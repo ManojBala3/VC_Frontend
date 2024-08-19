@@ -1,0 +1,51 @@
+<app-welcome [route]="user"> </app-welcome>
+
+  <!--  add customer form page start-->
+  <div class="container  my-3">
+    <div class="row ">
+      <h5 class="text-center update-heading  my-4">ADD USER</h5>
+      <form [formGroup]="itemForm" role="form" (ngSubmit)='registeruser(itemForm)'>
+        <div class="row d-flex justify-content-center ">
+          <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <div class="form mandatory">
+              <label for="username">User Name</label><span>*</span>
+              <input type="text" id="username" [(ngModel)]="username" name="username" placeholder=""
+                class="form-control" formControlName="username" required>
+            </div>
+            <br>
+            <div [ngClass]="(itemForm.controls['userrole'].invalid && (itemForm.controls['userrole'].dirty || itemForm.controls['userrole'].touched)) ? 'highlighterror' :''">
+              <div class="form mandatory">
+                <label for="userrole">User Role</label><span>*</span>
+                <select class="form-control" id="userrole"  
+                    formControlName="userrole">
+                    <option value="" disabled selected>--Select Role--</option>
+                  <option *ngFor="let method of role" [value]="method"> {{method}}</option>
+                </select>
+              </div>
+          </div>
+          <br>
+          <div class="form mandatory">
+            <label for="userpassword">Password</label><span>*</span>
+            <input type="password" id="userpassword" [(ngModel)]="userpassword" name="userpassword" placeholder=""
+              class="form-control" formControlName="userpassword" required minlength="5">
+          </div>
+          <br>
+          <div class="form mandatory">
+            <label for="userpassword2">Confirm Password</label><span>*</span>
+            <input type="password" id="userpassword2" [(ngModel)]="userpassword2" name="userpassword2" placeholder=""
+              class="form-control" formControlName="userpassword2" required minlength="5">
+          </div>
+          <br>
+           <div class="d-flex justify-content-center form mt-3">
+          <button type="button" (click)="backToListItem()" class="btn btn-secondary ">
+            <span> <i class="fa fa-arrow-left"></i></span>
+            Back</button> &nbsp;&nbsp;
+          <button class="btn btn-primary " type="submit" 
+            name="addcustomer"><span>Submit</span></button>
+           </div>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>

@@ -1,0 +1,54 @@
+
+  .table-header {
+    background-color: #a8c2c6;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    font-weight: bolder;
+  }
+  
+  .table-row {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+  }
+  // .form{
+  //   margin-top:1rem;
+  // }
+  
+label{
+  font-weight: bold;
+  letter-spacing: 1px;
+  
+}
+.container
+{
+  padding-bottom: 0.5rem;
+}
+
+
+  input.ng-invalid.ng-touched.ng-invalid, textarea.ng-invalid.ng-touched.ng-invalid{
+    border: 1px solid red;
+  }
+
+  .update-heading{
+    font-weight: bold;
+    letter-spacing: 1px;
+    color:grey;
+  }
+
+  .addcustomerbuttonclass{
+    margin-left: -44px;
+  }
+  
+  .table-responsive 
+  {
+    text-align: center;
+  }
+
+  .mandatory span{
+    color: red;
+  }
+
+  .highlighterror select
+  {
+    border: 1px solid red;
+  }

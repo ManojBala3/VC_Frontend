@@ -13,7 +13,7 @@ export class HttpserviceService {
 
   public local="http://localhost:8080";
   public server="http://13.211.212.250:8080/VC";
-  public omsurl = this.local;
+  public omsurl = this.server;
 
   constructor(private http: HttpClient ) { }
 

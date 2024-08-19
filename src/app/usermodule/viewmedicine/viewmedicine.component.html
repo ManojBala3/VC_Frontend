@@ -1,0 +1,82 @@
+<app-welcome [route]="viewmedicine"> </app-welcome>
+
+<h5 class="text-center update-heading  my-4">VIEW ALL MEDICINE</h5>
+
+
+ <!-- navigation header add customer, search, clear start here -->
+
+   <div class="container my-2  px-lg-5 px-md-3">
+    <div class="row d-flex  align-items-center justify-content-around  align-content-center px-lg-5 px-md-3">
+
+
+      <div class="col-2 addcustomerbuttonclass">
+        <button id="additem" class="btn btn-success" type="button" (click)="addItemDetails()"
+          name="additem"> <span> <i class="fa fa-plus"></i></span> Add Medicine </button>
+      </div>
+
+     
+      <div class="col-2">
+        <select [(ngModel)]="searchType" (change)="onSearchTypeChange($event)" class="form-control"
+          placeholder="Search Type" id="searchType">
+          <option value="searchType">--Search Type--</option>
+          <option value="medicine">Medicine Name</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue"
+          placeholder="Search Value" class="form-control" />
+      </div>
+
+      <div class="col-3">
+        <button [disabled]="isSearchButtonDisabled" type="button" (click)="searchItems()" class="btn btn-primary">
+          <span> <i class="fa fa-search"></i></span> Search </button>
+          &nbsp;&nbsp;&nbsp;
+        <button type="button" (click)="clearSearchCustomers()" class="btn btn-secondary"> <span> <i
+              class="fa fa-remove"></i></span> Clear </button>
+      </div>
+      <div class="col-2 ">
+        <button id="totalCustomers" class="btn btn-info" type="button" name="totalCustomers"> Medicines: <span
+            class="badge rounded-pill text-bg-dark">{{totalItemsCount}} </span></button>
+      </div>
+    </div>
+
+  </div> 
+
+  <!-- navigation header add customer, search, clear end here -->
+
+
+ 
+<!-- order data tables display here -->
+
+<div class="container mt-3">
+    <div class="row">
+      <div class="table-responsive">
+        <table id="example1" class="table table-striped" style="width:100%">
+          <thead class="table-header">
+            <tr>
+              <td>Medicine ID</td>
+              <td>Medicine Name</td>
+              <td>Medicine Type</td>
+              <td *ngIf="isAdmin">Actions</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="totalItemsCount=='0' && isAdmin" ><td colspan="4">No Records to display</td> </tr>
+          <tr *ngIf="totalItemsCount=='0' && !isAdmin" ><td colspan="3">No Records to display</td> </tr>
+              <tr *ngFor="let item of itemsList | paginate: { itemsPerPage: 10, currentPage: currentPageNumber, totalItems: totalItemsCount };let i=index;">
+              <td data-label="med Id">{{item.medid}}</td>
+              <td data-label="med name">{{item.medicinename}}</td>
+              <td data-label="med type">{{item.medicinetype}}</td>
+              <td class="d-flex" style=" justify-content: center; " *ngIf="isAdmin">
+                <button type="button" (click)="updateItem(item.medid)" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="right" title="Edit"><span> <i class="fa fa-edit"></i></span> </button>
+                &nbsp;&nbsp;  &nbsp;&nbsp; 
+                <button type="button" (click)="deleteItem(item.medid)" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="right" title="Delete"><span> <i class="fa fa-trash"></i></span> </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="totalItemsCount!='0'"><pagination-controls (pageChange)="onViewCustomerPaginationPageChange($event)"></pagination-controls></div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>

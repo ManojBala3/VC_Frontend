@@ -1,0 +1,315 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<app-welcome [route]="addvisit"> </app-welcome>
+  <div class="container" >
+    <h5 class="text-center update-heading  my-4">ADD VISIT</h5>
+    
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-2" >
+        <select class="form-control" [(ngModel)]="searchType" (change)="onSearchTypeChange($event)" class="form-control"
+          placeholder="Search Type" id="searchType">
+          <option value="searchType">--Search Type--</option>
+          <option value="phoneNumber">Contact Number</option>
+          <option value="patientid">Patient ID</option>
+          
+        </select>
+      </div>
+    <div class="col-2">
+      <input type="text" class='form-control' id="searchValue" [disabled]="isSearchValueDisabled" name="searchValue " placeholder="Enter customer data.."
+        [(ngModel)]="searchValue">
+    </div>
+    <div class="col-md-4" >
+      <button type="button" [disabled]="isSearchButtonDisabled" (click)="searchCustomers()" class="btn btn-info"><span> <i></i></span> Search </button>
+      &nbsp;&nbsp;&nbsp;
+      <button type="button" (click)="clearAddOrderDetails()" class="btn btn-secondary"> <span> <i class="fa fa-remove"></i></span> Clear </button>
+    </div>
+  </div>
+  <hr>
+
+    <form [formGroup]='orderForm'  (ngSubmit)='addOrderData(orderForm)'>
+      <div class="row d-flex justify-content-center " >
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mandatory">
+          
+          <div>
+            <label for="customername">Name </label><span>*</span>
+            <input formControlName='customername' id="customername" type="text" value="" class="form-control" placeholder=" " />
+          </div>
+          <div class>
+            <label for="customerage">Age </label> <span>*</span>
+            <div class="row">
+              <div class="col-md-2 " >
+                <input formControlName='customerageyear' type="text"  id='customerageyear' value="" class="form-control classage" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder=" " min="0"/>
+              </div>
+              <div class="col-md-1 classlabel"><label for="customerage">Y</label> </div>
+
+              <div class="col-md-2 ">
+                <input formControlName='customeragemonth' type="text"  id='customeragemonth' value="" class="form-control classage" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder=" " min="0"/>
+              </div>
+              <div class="col-md-1 classlabel"><label for="customerage">M</label> </div>
+
+              <div class="col-md-2">
+                <input formControlName='customerageweek' type="text"  id='customerageweek' value="" class="form-control classage" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  placeholder=" " min="0"/>
+              </div>
+              <div class="col-md-1 classlabel"><label for="customerage">W</label> </div>
+              
+              <div class="col-md-2">
+                <input formControlName='customerageday' type="text"  id='customerageday' value="" class="form-control classage" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder=" " min="0"/>
+              </div>
+              <div class="col-md-1 classlabel"><label for="customerage">D</label> </div>
+            </div>
+          </div>
+          <div [ngClass]="(orderForm.controls['customergender'].invalid && (orderForm.controls['customergender'].dirty || orderForm.controls['customergender'].touched)) ? 'highlighterror' :''" >
+            <label for="abc">Gender </label><span>*</span>
+            <select class="form-control" id="customergender" 
+                formControlName="customergender" id="customergender"  required >
+                <option value=""  selected>--Select gender--</option>
+              <option *ngFor="let method of genderdropdown" [value]="method"> {{method}}</option>
+            </select>
+          </div>
+          <div>
+            <label for="customermobile">Contact No </label><span>*</span>
+            <input formControlName='customermobile' id='customermobile' type="text" value="" class="form-control" placeholder=" " oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10"/>
+          </div>
+          <div>
+            <label for="customeremail">Email</label>
+            <input formControlName='customeremail' type="text" id="customeremail" value="" class="form-control" placeholder=" " />
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mandatory">
+        
+          <div *ngIf="!showabcothers" [ngClass]="(orderForm.controls['abc'].invalid && (orderForm.controls['abc'].dirty || orderForm.controls['abc'].touched)) ? 'highlighterror' :''" >
+            <label for="abc">ABC</label><span>*</span>
+            <select class="form-control" id="abc"  
+                formControlName="abc" required (change)="selectchange('abc',$event)">
+                <option value=""  selected>--Select Status--</option>
+              <option *ngFor="let method of statushealth" [value]="method" > {{method}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="showabcothers" [ngClass]="(orderForm.controls['abc'].invalid && (orderForm.controls['abc'].dirty || orderForm.controls['abc'].touched)) ? 'highlighterror' :''">
+            <label for="abc">ABC(Others)</label>
+            <div class="row">
+            <div class="col-md-11"><input formControlName='abc' type="text" id="abc" value="" class="form-control" placeholder=" " /></div>
+            <div class="col-md-1 reset"><span (click)="resetdropdown('abc')"><i class="material-icons">restore</i></span></div>
+            
+          </div>
+          </div>
+
+          <div *ngIf="!showvitalsothers" [ngClass]="(orderForm.controls['vitals'].invalid && (orderForm.controls['vitals'].dirty || orderForm.controls['vitals'].touched)) ? 'highlighterror' :''">
+            <label for="vitals">Vitals</label><span>*</span>
+            <select class="form-control" id="vitals" 
+                formControlName="vitals" required (change)="selectchange('vitals',$event)">
+                <option value="" disabled selected>--Select Status--</option>
+              <option *ngFor="let method of vitalsdropdown" [value]="method"> {{method}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="showvitalsothers" [ngClass]="(orderForm.controls['vitals'].invalid && (orderForm.controls['vitals'].dirty || orderForm.controls['vitals'].touched)) ? 'highlighterror' :''">
+            <label for="vitals">Vitals(Others)</label><span>*</span>
+            <div class="row">
+              <div class="col-md-11"><input formControlName='vitals' type="text" id="vitals" value="" class="form-control" placeholder=" " /></div>
+            <div class="col-md-1 reset"><span (click)="resetdropdown('vitals')"><i class="material-icons">restore</i></span></div></div>
+          </div>
+
+          <div *ngIf="!showentothers" [ngClass]="(orderForm.controls['ent'].invalid && (orderForm.controls['ent'].dirty || orderForm.controls['ent'].touched)) ? 'highlighterror' :''">
+            <label for="ent">ENT</label><span>*</span>
+            <select class="form-control" id="ent" 
+                formControlName="ent" required (change)="selectchange('ent',$event)">
+                <option value="" disabled selected>--Select Status--</option>
+              <option *ngFor="let method of entdropdown" [value]="method"> {{method}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="showentothers" [ngClass]="(orderForm.controls['ent'].invalid && (orderForm.controls['ent'].dirty || orderForm.controls['ent'].touched)) ? 'highlighterror' :''">
+            <label for="ent">ENT(Others)</label><span>*</span>
+            <div class="row">
+              <div class="col-md-11"><input formControlName='ent' type="text" id="ent" value="" class="form-control" placeholder=" " /></div>
+            <div class="col-md-1 reset"><span (click)="resetdropdown('ent')"><i class="material-icons">restore</i></span></div></div>
+          </div>
+
+          <div *ngIf="!showseothers" [ngClass]="(orderForm.controls['se'].invalid && (orderForm.controls['se'].dirty || orderForm.controls['se'].touched)) ? 'highlighterror' :''">
+            <label for="se">S/E</label><span>*</span>
+            <select class="form-control" id="se"  
+                formControlName="se" (change)="selectchange('se',$event)">
+                <option value="">--Select Status--</option>
+              <option *ngFor="let method of seOptions" [value]="method"> {{method}}</option>
+            </select>
+          </div>
+
+          <div *ngIf="showseothers" [ngClass]="(orderForm.controls['se'].invalid && (orderForm.controls['se'].dirty || orderForm.controls['se'].touched)) ? 'highlighterror' :''">
+            <label for="se">S/E(Others)</label><span>*</span>
+            <div class="row">
+              <div class="col-md-11"><input formControlName='se' type="text" id="se" value="" class="form-control" placeholder=" " /></div>
+            <div class="col-md-1 reset"><span (click)="resetdropdown('se')"><i class="material-icons">restore</i></span></div></div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mandatory">
+        <div> 
+       
+          <div>
+            <label for="height">Height (cm)</label>
+            <input formControlName='height' type="text" class="form-control" placeholder="" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+          </div>
+          <div>
+            <label for="weight">Weight (Kg)</label>
+            <input formControlName='weight' type="text" class="form-control" placeholder=" " oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+          </div>
+          <div>
+            <label for="hc">HC (cm)</label>
+            <input formControlName='hc' type="text" class="form-control" placeholder=" " oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+          </div>
+         
+        </div>
+      </div>
+      
+      <div class="mandatory">
+        <br>
+        <label for="additionalnote">Provisional Diagnosis</label> <span>*</span>
+         <textarea formControlName="additionalnote" name="additionalnote" id="additionalnote" class="form-control" placeholder=""></textarea>
+         <br>
+      </div>
+        
+        <hr class="mt-3">
+
+        <!-- add order form page item details table start here -->
+        
+        <div class="row mt-1">
+          <div class="col-md-1">
+            <label for="">S.No </label>
+          </div>
+          <div class="col-md-2">
+            <label for="">Drug Name</label>
+          </div>
+          <div class="col-md-1">
+            <label for="">Med Type</label>
+          </div>
+          <div class="col-md-1" style=" text-align: center; ">
+            <label for="">Morning</label>
+          </div>
+          <div class="col-md-1" style=" text-align: center; ">
+            <label for="">Noon</label>
+          </div>
+          <div class="col-md-1" style=" text-align: center; ">
+            <label for="">Evening</label>
+          </div>
+          <div class="col-md-1" style=" text-align: center; ">
+            <label for="">Night</label>
+          </div>
+          <div class="col-md-1" style=" text-align: center; ">
+            <label for="">Before Food</label>
+          </div>
+          <div class="col-md-1" style=" text-align: center; ">
+            <label for="">After Food</label>
+          </div>
+          <div class="col-md-1">
+            <label for="">Duration</label>
+          </div>
+        </div>
+  
+        <div formArrayName="products" *ngFor="let t of products.controls; let i = index">
+          <br />
+          <div class="row" formGroupName="{{i}}">
+  
+            <div class="col-md-1" style=" text-align: center; ">
+              <span class="">{{i+1}}</span>
+            </div>
+              
+            <div class="col-md-2">
+              <input formControlName='drugname' id="{{'dname'+i}}" type="text" class="form-control"  placeholder="Drug Name"  list="listmedicine" (keydown)=searchmedicine(i) (change)=setmedicinetype(i)/>
+              <datalist id="listmedicine" >
+                <option *ngFor="let method of listmedicine" [value]="method"></option>
+              </datalist>
+            </div>  
+            
+            <div class="col-md-1 classnum">
+              <select class="form-control" id="{{'medtype'+i}}" 
+                  formControlName="medtype" required >
+                  <option value="" disabled selected>Select</option>
+                <option *ngFor="let method of med" [value]="method"> {{method}}</option>
+              </select>
+            </div>
+            <div *ngIf=medchange(i) [ngClass]="{'col-md-7': medchange(i)}">
+              <div >
+                <input formControlName='addinfo' type="text" id="{{'addinfo'+i}}" value="" class="form-control" placeholder="" list="medicineothersdd" min="0"/>
+                <datalist id="medicineothersdd" >
+                  <option *ngFor="let method of medicineothersdd" [value]="method"></option>
+                </datalist>
+              </div>
+            </div>
+            <div class="col-md-1 classnum" *ngIf=!medchange(i)>
+              <input class="numcheck" type="number" formControlName='morning' id="{{'mrng'+i}}" class="form-control" value="" min="0"/>
+            </div>
+            
+              <div class="col-md-1 classnum" *ngIf=!medchange(i)>
+                <input class="numcheck" formControlName='noon' id="{{'noon'+i}}" type="number" class="form-control"  value="" min="0"/>
+              </div>
+
+              <div class="col-md-1 classnum" *ngIf=!medchange(i)>
+                <input class="numcheck" formControlName='evening' id="{{'eve'+i}}" type="number"  class="form-control" value="" min="0"/>
+              </div>
+
+              <div class="col-md-1 classnum" *ngIf=!medchange(i)>
+                <input class="numcheck" formControlName='night' id="{{'nig'+i}}" type="number" class="form-control"  value="" min="0"/>
+              </div>
+
+              <div class="col-md-1 classnum" *ngIf=!medchange(i)>
+                <input  formControlName='beforefood' id="{{'bfood'+i}}" type="checkbox"   value="" style=" width: 30px; height: 28px;position: relative; border: 1px solid #ccc;top: 4px;"/>
+              </div>
+
+              <div class="col-md-1 classnum" *ngIf=!medchange(i)>
+                <input formControlName='afterfood' id="{{'afood'+i}}" type="checkbox"   value="" style=" width: 30px; height: 28px;position: relative; border: 1px solid #ccc;top: 4px;"/>
+              </div>
+
+              <div class="col-md-1 classnum" *ngIf=!medchange(i)>
+                <input formControlName='duration' id="{{'dur' + i}}" type="number" class="form-control"   placeholder="" min="1"/>
+              </div>
+           
+          
+            <div *ngIf="i>0" class="col-1">
+              <div type="button" class="btn btn-danger " (click)="removeProduct(i)">
+                <span> <i class="fa fa-trash"></i></span> </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="btn btn-outline-secondary" (click)='addProduct()'> <span> <i class="fa fa-plus"></i></span> Add More Items</div> 
+          </div>
+        </div>
+        <hr class="mt-3">
+        <div class="row">
+          <div class="col-md-4" style=" margin-left: 16.5%; ">
+          <label for="comments">Advice</label>
+          <input formControlName='comments' type="text" id="comments" value="" class="form-control" placeholder=" " list="advicedropdown" />
+          <datalist id="advicedropdown" >
+            <option *ngFor="let method of advicedropdown" [value]="method"></option>
+          </datalist>
+          </div>
+          <div class="col-4">
+            <label for="comments">Next Visit</label>
+            <input formControlName='nextreview' type="date" value="" id="nextreview" class="form-control" min={{mindate}} style="width: 70%"/>
+          </div>
+        </div>       
+
+ <!-- add order form page item details table end here -->
+
+        <hr class="mt-3">
+        <div class="row mt-1">
+          <div class="d-flex justify-content-center align-items-center" style=" padding-bottom: 42px; ">
+            <button  type="button" (click)="backToViewCustomers()" class="btn btn-secondary"><span> <i class="fa fa-arrow-left"></i></span> Back</button>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Submit"  class="btn btn-success">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button  type="button" (click)="addtoqueue(orderForm)" class="btn btn-secondary"> Add to Queue</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  
+  
+  </div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>
+<!-- add order form page start here -->

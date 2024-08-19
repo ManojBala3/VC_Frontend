@@ -1,0 +1,165 @@
+<app-welcome [route]="addpatient"> </app-welcome>
+
+  <!--  add customer form page start-->
+  <div class="container  my-3" *ngIf="clickedAddCustomer">
+    <div class="row ">
+      <h5 class="text-center update-heading  my-4">ADD PATIENT</h5>
+      
+      <form [formGroup]="customerForm">
+        <div class="row d-flex justify-content-center ">
+          <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <div class="form mandatory">
+              <label for="customername">Name</label><span>*</span>
+              <input type="text" id="customername" [(ngModel)]="customername" name="customername" 
+                class="form-control" formControlName="customername" >
+            </div>
+            <br>
+            <div [ngClass]="(customerForm.controls['customergender'].invalid && (customerForm.controls['customergender'].dirty || customerForm.controls['customergender'].touched)) ? 'highlighterror' :''">
+              <div class="form mandatory" >
+                <label for="customergender">Gender</label><span>*</span>
+                <select class="form-control" id="customergender" formControlName="customergender" >
+                <option selected value="">--Select gender--</option>
+              <option *ngFor="let method of genderdropdown" [value]="method"> {{method}}</option>
+            </select>
+              </div>
+            </div>
+            <br>
+            <div class="form mandatory">
+              <label for="customephonenumber">Contact Number</label><span>*</span>
+              <input type="text" id="customephonenumber" name="customephonenumber" placeholder="" class="form-control"
+                formControlName="customephonenumber" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
+            </div>
+            <br>
+           
+          
+        
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+          <div class="form">
+            <label for="customerstate">State</label>
+            <input type="text" id="customerstate" name="customerstate" placeholder="" class="form-control"
+              formControlName="customerstate">
+          </div>
+          <br>
+          <div class="form">
+            <label for="customerdistrict">District</label>
+            <input type="text" id="customerdistrict" name="customerdistrict" placeholder="" class="form-control"
+              formControlName="customerdistrict">
+          </div>
+            <br>
+            <div class="form">
+              <label for="customeremail">Email</label>
+              <input type="text" id="customeremail" name="customeremail" placeholder="" class="form-control"
+                formControlName="customeremail">
+            </div>
+        
+        </div>
+        <br>
+        <div class="d-flex justify-content-center form mt-3">
+          <button *ngIf="clickedAddCustomer" type="button" (click)="backToViewCustomers()" class="btn btn-secondary ">
+            <span> <i class="fa fa-arrow-left"></i></span>
+            Back</button> &nbsp;&nbsp;
+          <button class="btn btn-primary " type="button" (click)="registerCustomer()"
+            name="addcustomer"><span>Submit</span></button>
+
+        </div>
+        </div>
+      
+    </form>
+
+    </div>
+
+  </div>
+  <!-- add customer form page end -->
+<!-- navigation with add customer, search value start from here -->
+
+<div *ngIf="!clickedAddCustomer" >
+<h5 class="text-center update-heading  my-4">VIEW ALL PATIENT</h5>
+</div>
+
+<div class="container my-2   px-lg-5 px-md-3 ">
+  <div class="row d-flex  align-items-center justify-content-center  align-content-center  px-lg-5 px-md-3 ">
+
+    <div class="col-2 addcustomerbuttonclass">
+      <button id="addCustomerButton" *ngIf="!clickedAddCustomer" class="btn btn-primary" type="button"
+        (click)="addCustomerButtonClicked()" name="addCustomerButton">
+        <span> <i class="fa fa-plus"></i></span> Add Patient </button>
+    </div>
+ 
+    <div class="col-2" *ngIf="!clickedAddCustomer">
+      <select class="form-control" [(ngModel)]="searchType" (change)="onSearchTypeChange($event)" class="form-control"
+        placeholder="Search Type" id="searchType">
+        <option value="searchType">--Search Type--</option>
+        <option value="name">Name</option>
+        <option value="phoneNumber">Mobile Number</option>
+        <option value="patientid">Patient ID</option>
+        
+      </select>
+    </div>
+    <div class="col-2" *ngIf="!clickedAddCustomer">
+      <input class="form-control" [disabled]="isSearchValueDisabled" type="search" id="searchValue"
+        [(ngModel)]="searchValue" placeholder="Search Value" class="form-control" />
+    </div>
+    <div class="col-3" *ngIf="!clickedAddCustomer">
+      <button [disabled]="isSearchButtonDisabled" type="button" (click)="searchCustomers()" class="btn btn-success">
+        <span> <i class="fa fa-search"></i></span> Search </button>
+        &nbsp;&nbsp;&nbsp;
+      <button type="button" (click)="clearSearchCustomers()" class="btn btn-secondary"> <span> <i
+            class="fa fa-remove"></i></span> Clear </button>
+    </div>
+    <div class="col-3" *ngIf="!clickedAddCustomer">
+      <button id="totalCustomers" class="btn btn-info customercountclass" type="button" name="totalCustomers"> Patient Count: <span
+          class="badge rounded-pill text-bg-dark">{{totalCustomers}} </span> </button>
+    </div>
+  </div>
+</div>
+
+<!-- navigation with add customer, search value end -->
+<!-- default customer data tables start from here -->
+<div class="container" *ngIf="!clickedAddCustomer">
+  <div class="row">
+    <div class="table-responsive">
+      <table id="example1" class="table table-striped" style="width:100%">
+        <thead class="table-header">
+          <tr>
+            <td>Patient ID</td>
+            <td>Patient Name</td>
+            <td>Mobile Number <span><i class="fa fa-phone"></i></span></td>
+            <td>State</td>
+            <td>District</td>
+           <!--  <td>Email <span><i class="fa fa-envelope"></i></span></td> -->
+            <td>Gender</td>
+            <td class="text-center" *ngIf="isAdmin">Actions</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="totalCustomers=='0' && isAdmin" ><td colspan="7">No Records to display</td> </tr>
+          <tr *ngIf="totalCustomers=='0' && !isAdmin" ><td colspan="6">No Records to display</td> </tr>
+          <tr *ngFor="let customer of customersList | paginate: { itemsPerPage: 10, currentPage: currentPageNumber, totalItems: totalCustomers };let i=index;">
+           
+            <td data-label="Customer Name">{{customer.customerid}}</td>
+            <td data-label="Customer Name">{{customer.custname}}</td>
+            <td data-label="Amount">{{customer.mobileno}}</td>
+            <td data-label="State">{{customer.state}}</td>
+            <td data-label="Payment Status">{{customer.district}}</td>
+            <!-- <td data-label="Amount">{{customer.emailid}}</td> -->
+            <td data-label="Amount" >{{customer.gender}}</td>
+            <td class="d-flex justify-content-center" *ngIf="isAdmin">
+              <button  type="button" class="btn btn-sm btn-warning" (click)="updateCustomer(customer.custid)">
+                <span> <i class="fa fa-edit"></i></span> </button>
+              &nbsp;&nbsp;
+              <button type="button" class="btn btn-sm btn-danger" (click)="deleteCustomer(customer.custid)">
+                <span> <i class="fa fa-trash"></i></span> </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div><pagination-controls (pageChange)="onViewCustomerPaginationPageChange($event)"></pagination-controls></div>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>
+<!-- default customer data tables end from here -->
+
+
+
