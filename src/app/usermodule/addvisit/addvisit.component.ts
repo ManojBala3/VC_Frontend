@@ -12,15 +12,17 @@ import {FormControl,
   FormBuilder,
   FormArray,
   Validators} from '@angular/forms';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, Subject, switchMap } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { SharingserviceService } from 'src/app/commonservices/sharingservice.service';
 @Component({
   selector: 'app-addvisit',
   templateUrl: './addvisit.component.html',
   styleUrls: ['./addvisit.component.scss']
 })
 export class AddVisitComponent implements OnInit {
-  addvisit = 'addvisit'
+  private clickSubject = new Subject<Event>();
+  addvisit = 'viewvisit'
   customerForm: UntypedFormGroup
   totalCustomers: any
   orderForm!: FormGroup;
@@ -71,7 +73,9 @@ export class AddVisitComponent implements OnInit {
 
   showOrderForm: boolean = false;
 
-  constructor(private router: Router, private httpservice:HttpserviceService, private toastr: ToastrService,private formBuilder: FormBuilder, private loader:NgxSpinnerService,public datepipe: DatePipe) {
+  constructor(private router: Router, private httpservice:HttpserviceService, private toastr: ToastrService,private formBuilder: FormBuilder, private loader:NgxSpinnerService,public datepipe: DatePipe
+    ,private sharingservice: SharingserviceService
+  ) {
 
     this.customerForm = new UntypedFormGroup({
       customerage: new UntypedFormControl(['', Validators.required]),
@@ -89,6 +93,11 @@ export class AddVisitComponent implements OnInit {
       searchValue:new UntypedFormControl(['']),
       comments:new UntypedFormControl(['']),
     })
+  }
+
+  handleClick(event: Event) {
+    event.preventDefault(); // Prevent default form submission
+    this.clickSubject.next(event);
   }
 
   ngOnInit(): void {
@@ -276,7 +285,10 @@ createProduct():FormGroup{
   backToViewCustomers(){
     this.clickedAddOrderButton = false;
     this.showOrderForm=false;
-    this.router.navigate(["/user/viewvisit"]);
+    if(this.sharingservice.getbackbutton()!=null && this.sharingservice.getbackbutton()!="")
+      this.router.navigate([this.sharingservice.getbackbutton()]); 
+    else
+      this.router.navigate(["/user/viewvisit"]);
   }
 
   addOrderData(formData: any){
@@ -382,7 +394,7 @@ createProduct():FormGroup{
    
     let lastClone: any = this.products.controls? this.products.controls[id]: '';
     var value=lastClone.get('drugname').value;
-    if(value==null || value=="" || value.length<4)
+    if(value==null || value=="" || value.length<2)
     {
       //this.toastr.error('Kindly enter some value to search', 'Error');
       this.listmedicine=[];

@@ -1,18 +1,18 @@
 <app-welcome [route]="updatevisit"> </app-welcome>
+<div class="main-content">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div *ngIf="!clickedAddOrderButton">
-<div class="container">
+
 
 
 
 <!-- add order form page start here -->
 
+<h5 *ngIf="viewType=='update'" class="text-center update-heading  my-4">UPDATE PRESCRIPTION</h5>
+<h5 *ngIf="viewType=='view'" class="text-center update-heading  my-4">VIEW PRESCRIPTION</h5>
 
   <div class="container" >
-    <h5 *ngIf="viewType=='update'" class="text-center update-heading  my-4">UPDATE PRESCRIPTION</h5>
-    <h5 *ngIf="viewType=='view'" class="text-center update-heading  my-4">VIEW PRESCRIPTION</h5>
-
-  <hr>
+   
 
     <form [formGroup]='orderForm'  (ngSubmit)='updateVisitData(orderForm)'>
       <div class="row d-flex justify-content-center">
@@ -241,13 +241,14 @@
                 <input class="numcheck" formControlName='night' id="{{'nig'+i}}" type="number" class="form-control"  value="" min="0"/>
               </div>
 
-              <div class="col-md-1 classnum" *ngIf=!medchange(i)>
-                <input  formControlName='beforefood' id="{{'bfood'+i}}" type="checkbox"   value="" style=" width: 30px; height: 28px;position: relative; border: 1px solid #ccc;top: 4px;"/>
-              </div>
-
-              <div class="col-md-1 classnum" *ngIf=!medchange(i)>
-                <input formControlName='afterfood' id="{{'afood'+i}}" type="checkbox"   value="" style=" width: 30px; height: 28px;position: relative; border: 1px solid #ccc;top: 4px;"/>
-              </div>
+              <div class="col-md-1 classnum center-checkbox" *ngIf="!medchange(i)">
+                <input formControlName='beforefood' id="{{'bfood'+i}}" type="checkbox" value="" style="width: 30px; height: 28px; border: 1px solid #ccc;position: relative;bottom: 0.8cm;" />
+            </div>
+            
+            <div class="col-md-1 classnum center-checkbox" *ngIf="!medchange(i)">
+                <input formControlName='afterfood' id="{{'afood'+i}}" type="checkbox" value="" style="width: 30px; height: 28px; border: 1px solid #ccc;position: relative;bottom: 0.8cm;" />
+            </div>
+            
 
               <div class="col-md-1 classnum" *ngIf=!medchange(i)>
                 <input formControlName='duration' id="{{'dur' + i}}" type="number" class="form-control"   placeholder="" min="1"/>
@@ -298,4 +299,4 @@
   </div>
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>
-<!-- add order form page start here -->
+</div>

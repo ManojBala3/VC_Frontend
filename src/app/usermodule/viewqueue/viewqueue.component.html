@@ -1,4 +1,5 @@
 <app-welcome  class="highlight" [route]="viewqueue"> </app-welcome>
+<div class="main-content">
 
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
@@ -15,7 +16,7 @@
 
       <div class="col-2">
         <button id="addCustomerButton" class="btn btn-success" type="button" (click)="addCustomerButtonClicked()"
-          name="addCustomerButton"> <span> <i class="fa fa-plus"></i></span> Add Visit </button>
+          name="addCustomerButton"> <span> <i class="fa fa-plus"></i></span> Add Queue </button>
       </div>
 
      
@@ -32,7 +33,7 @@
         </select>
       </div>
       <div class="col-2">
-        <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue"
+        <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue" (keydown.enter)="searchVisits()"
           placeholder="Search Value" class="form-control" />
       </div>
 
@@ -97,5 +98,5 @@
   </div>
 </div>
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>
-
+</div>
 <!-- order data tables end here -->

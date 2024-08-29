@@ -1,25 +1,59 @@
-    <form [formGroup]="loginform" >
-        <h3>Login Here</h3>
-        <br>
-     <!-- <label for="username">Username</label> -->
-        <input type="text" placeholder="User Name" #user id="username" (keydown.space)="$event.preventDefault();" formControlName="email" required>
-        <div *ngIf="loginform.controls['email'].invalid && (loginform.controls['email'].dirty || loginform.controls['email'].touched)" class="alert">
-            
-            <div *ngIf="loginform.controls['email'].errors">Please enter valid User Name</div>
-        </div>
+<form [formGroup]="loginform" class="login-form">
+    <h3 class="form-title">Login Here</h3>
 
-        <!-- <label for="password">Password</label> -->
-        <input type="password" placeholder="Password" #pass id="password" (keydown.space)="$event.preventDefault();" formControlName="password" required>
-        <div *ngIf="loginform.controls['password'].invalid && (loginform.controls['password'].dirty || loginform.controls['password'].touched)" class="alert">
-            <div *ngIf="loginform.controls['password'].errors">Please enter valid Password</div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+            type="text" 
+            id="username" 
+            placeholder="User Name" 
+            formControlName="email" 
+            (keydown.space)="$event.preventDefault();" 
+            required #user
+            class="form-control"
+        />
+        <div *ngIf="loginform.controls['email'].invalid && (loginform.controls['email'].dirty || loginform.controls['email'].touched)" class="alert alert-danger">
+            <div *ngIf="loginform.controls['email'].errors">Please enter a valid username</div>
         </div>
+    </div>
 
-       <div class="login">
-		    <button type="button" (click)="loginbtn(user.value,pass.value)" name="login" [disabled]="loginform.invalid" ><span>Log In</span></button>
-		</div>
-		<!-- <button name="register" name="regbtn" (click)="regbtn()" type="button"><span>Register</span></button> -->
-       
-		<div  *ngIf=showerror><label for="error"  style="color: red;text-align: center;">{{errormsg}}</label></div>
-        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>
-    </form>
-    
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+            type="password" 
+            id="password" 
+            placeholder="Password" 
+            formControlName="password" 
+            (keydown.space)="$event.preventDefault();" 
+            required  #pass
+            class="form-control"
+        />
+        <div *ngIf="loginform.controls['password'].invalid && (loginform.controls['password'].dirty || loginform.controls['password'].touched)" class="alert alert-danger">
+            <div *ngIf="loginform.controls['password'].errors">Please enter a valid password</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button 
+            type="button" 
+            (click)="loginbtn(user.value, pass.value)" 
+            [disabled]="loginform.invalid" 
+            class="btn btn-primary"
+        >
+            Log In
+        </button>
+    </div>
+
+    <div *ngIf="showerror" class="error-message">
+        <label for="error" class="error-text">{{errormsg}}</label>
+    </div>
+
+    <ngx-spinner 
+        bdColor="rgba(51, 51, 51, 0.8)" 
+        size="default" 
+        type="ball-spin-clockwise" 
+        class="spinner"
+    >
+        <p style="color: white">Loading...</p>
+    </ngx-spinner>
+</form>

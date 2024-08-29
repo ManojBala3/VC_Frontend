@@ -1,95 +1,93 @@
-
-
-.table-header {
-  background-color: #a8c2c6;
-  font-size: 14px;
-  letter-spacing: 0.03em;
-  font-weight: bolder;
+/* General Label Styles */
+label {
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding-top: 10px;
+  color: #333; /* Adjust color for better readability */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
-.table-row {
-  background-color: #ffffff;
-  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
-}
-// .form{
-//   margin-top:1rem;
-// }
-
-label{
-font-weight: bold;
-letter-spacing: 1px;
-margin-bottom: 3px;
-margin-top: 5px;
-
+label:hover {
+  color: #F39C12; /* Change color on hover */
 }
 
-
-input.ng-invalid.ng-touched.ng-invalid, textarea.ng-invalid.ng-touched.ng-invalid, checkbox.ng-invalid.ng-touched.ng-invalid{
-border: 1px solid red;
+/* Main Content Padding */
+.main-content {
+  padding-top: 10em; /* Adjusted padding-top to fit the navbar height */
 }
 
-.update-heading{
-font-weight: bold;
-letter-spacing: 1px;
-color:grey;
+/* Input and Textarea Invalid Styles */
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border: 2px solid red; /* Increased border width for invalid fields */
+  transition: border 0.3s ease; /* Smooth border transition */
 }
 
-
-.btn btn-info
-{
-margin-right: 1px;
+input.ng-invalid.ng-touched:focus, textarea.ng-invalid.ng-touched:focus {
+  outline: none; /* Remove default outline */
+  border-color: #F39C12; /* Highlight border color on focus */
 }
 
-.classnum{
-text-align: center;
-}
-.classnum input{
-text-align: center;
-}
-
-.numcheck{
-width: 53px; 
-height: 33px;
- margin-left: 5%;
- position: relative;
- border: 1px solid #ccc;
- border-radius: 3px;
- text-align: center;
+/* Heading Styles */
+.update-heading {
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: grey;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
-.classnum label{
-font-weight: 100;
+.update-heading:hover {
+  color: #2C3E50; /* Change color on hover */
 }
 
-.classage{
-width: 65px;
+/* Mandatory Field Indicator */
+.mandatory span {
+  color: red;
 }
 
-.classlabel label{
-font-weight: 100;
-font-size: 13px;
-position: relative;
-top: 10px;
-}
-.mandatory span 
-{
-color: red;
+/* Highlight Error Styles for Select Element */
+.highlighterror select {
+  border: 2px solid red; /* Increased border width for error */
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Red shadow for error */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
 }
 
-.reset {
-align-self: flex-end;-webkit-writing-mode: vertical-rl;
-cursor: pointer;
-color: black;
-}
-.reset span{
-
-color: black;
-}
-.highlighterror select
-{
-border: 1px solid red;
+.highlighterror select:focus {
+  border-color: #F39C12; /* Highlight border color on focus */
+  box-shadow: 0 0 8px rgba(243, 156, 18, 0.6); /* Highlight shadow on focus */
 }
 
 
 
+@media (max-width: 767px) {
+  .main-content {
+    padding-top: 25em; /* Increased padding for mobile */
+  }
+}
 
+/* For screens larger than 768px (web view) */
+@media (min-width: 768px) {
+  .main-content {
+    padding-top: 10em; /* Adjusted padding for larger screens */
+  }
+}
+
+.container {
+  margin: 2em auto;
+  padding: 1.5em; /* Increased padding for better spacing */
+  border: 2px solid #F39C12; /* Subtle solid border suitable for form-filling */
+  border-radius: 8px; /* Rounded corners for a softer look */
+  background-color: #fff;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  background-color:  aliceblue;
+  margin: 0 auto;
+}
+
+.center-checkbox {
+  display: flex;
+  justify-content: center;  /* Center horizontally */
+  align-items: center;      /* Center vertically */
+  height: 100px;            /* Set appropriate height */
+}

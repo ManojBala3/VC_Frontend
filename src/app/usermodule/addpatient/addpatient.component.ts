@@ -15,6 +15,7 @@ import { HttpserviceService } from 'src/app/httpservice.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subject } from 'rxjs/internal/Subject';
 
 
 @Component({
@@ -53,6 +54,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./addpatient.component.scss'],
 })
 export class AddPatientComponent implements OnInit {
+  private clickSubject = new Subject<Event>();
   addpatient = 'addpatient';
   customerForm!: FormGroup;
   selectedState: any;
@@ -60,7 +62,7 @@ export class AddPatientComponent implements OnInit {
   optionsList: any;
   selectedDistrict: any;
   totalCustomers: any;
-  genderdropdown=['Male','Female','Transgender'];
+  genderdropdown=['Boy','Girl'];
   stateList: any;
   clickedAddCustomer: boolean = false;
   customersList: any;
@@ -75,6 +77,7 @@ export class AddPatientComponent implements OnInit {
   limit: any = 10;
   offset: any = 0;
   customergender:any="";
+  isSubmitting = false;
   isAdmin:boolean=false;
 
   constructor(
@@ -96,6 +99,11 @@ export class AddPatientComponent implements OnInit {
       customername: new UntypedFormControl(['', Validators.required]),
       
     });
+  }
+
+  handleClick(event: Event) {
+    event.preventDefault(); // Prevent default form submission
+    this.clickSubject.next(event);
   }
 
   searchText: string = '';
@@ -267,6 +275,8 @@ export class AddPatientComponent implements OnInit {
   }
 
   registerCustomer() {
+    this.loader.show();
+    this.isSubmitting=true;
     if(this.customerForm.valid  && this.customerForm.value['customergender']!=""){
         // Form is valid, perform your desired actions here
         console.log('Form submitted successfully');
@@ -281,6 +291,8 @@ export class AddPatientComponent implements OnInit {
     this.toastr.error(
       'Missing Mandatory Fields'
     );
+    this.isSubmitting=false;
+    this.loader.hide();
     return ;
   }
    
@@ -307,6 +319,7 @@ export class AddPatientComponent implements OnInit {
         if((<any>response)!=null && (<any>response).respcode=='00')
         {
           this.loader.hide();
+          this.isSubmitting=false;
           this.toastr.success(
             'Patient Registeration Success'
           );
@@ -314,6 +327,7 @@ export class AddPatientComponent implements OnInit {
         }
         else{
           this.loader.hide();
+          this.isSubmitting=false;
           this.toastr.error(
            (<any>response).respdesc
           );
@@ -325,12 +339,15 @@ export class AddPatientComponent implements OnInit {
       (err) => {
         console.log('Error caught at Subscriber ' , err);
         this.loader.hide();
+        this.isSubmitting=false;
         this.toastr.error('Patient registered failed', 'Error!');
         this.clickedAddCustomer = true;
       },
       () => console.log('Processing Complete.')
     
     );
+    this.loader.hide();
+    this.isSubmitting=false;
     this.getAllCustomers();
   }
 

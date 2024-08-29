@@ -1,51 +1,87 @@
-<app-welcome [route]="user"> </app-welcome>
-
+<app-welcome [route]="user"></app-welcome>
+<div class="main-content">
   <!--  add customer form page start-->
-  <div class="container  my-3">
-    <div class="row ">
-      <h5 class="text-center update-heading  my-4">ADD USER</h5>
-      <form [formGroup]="itemForm" role="form" (ngSubmit)='registeruser(itemForm)'>
-        <div class="row d-flex justify-content-center ">
+  <h5 class="text-center update-heading my-4">ADD USER</h5>
+  <div class="container my-3">
+    <div class="row">
+      <form [formGroup]="itemForm" role="form" (ngSubmit)="registeruser(itemForm)">
+        <div class="row d-flex justify-content-center">
           <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-            <div class="form mandatory">
-              <label for="username">User Name</label><span>*</span>
-              <input type="text" id="username" [(ngModel)]="username" name="username" placeholder=""
-                class="form-control" formControlName="username" required>
-            </div>
-            <br>
-            <div [ngClass]="(itemForm.controls['userrole'].invalid && (itemForm.controls['userrole'].dirty || itemForm.controls['userrole'].touched)) ? 'highlighterror' :''">
-              <div class="form mandatory">
-                <label for="userrole">User Role</label><span>*</span>
-                <select class="form-control" id="userrole"  
-                    formControlName="userrole">
-                    <option value="" disabled selected>--Select Role--</option>
-                  <option *ngFor="let method of role" [value]="method"> {{method}}</option>
-                </select>
-              </div>
-          </div>
-          <br>
-          <div class="form mandatory">
-            <label for="userpassword">Password</label><span>*</span>
-            <input type="password" id="userpassword" [(ngModel)]="userpassword" name="userpassword" placeholder=""
-              class="form-control" formControlName="userpassword" required minlength="5">
-          </div>
-          <br>
-          <div class="form mandatory">
-            <label for="userpassword2">Confirm Password</label><span>*</span>
-            <input type="password" id="userpassword2" [(ngModel)]="userpassword2" name="userpassword2" placeholder=""
-              class="form-control" formControlName="userpassword2" required minlength="5">
-          </div>
-          <br>
-           <div class="d-flex justify-content-center form mt-3">
-          <button type="button" (click)="backToListItem()" class="btn btn-secondary ">
-            <span> <i class="fa fa-arrow-left"></i></span>
-            Back</button> &nbsp;&nbsp;
-          <button class="btn btn-primary " type="submit" 
-            name="addcustomer"><span>Submit</span></button>
-           </div>
+            
+            <!-- User Name Field -->
+      <div class="form mandatory">
+        <label for="username">User Name</label><span>*</span>
+        <input type="text" id="username" formControlName="username" placeholder=""
+          class="form-control" required>
+        <div *ngIf="itemForm.controls['username'].invalid && 
+                     (itemForm.controls['username'].dirty || itemForm.controls['username'].touched)" class="text-danger">
+          <div *ngIf="itemForm.controls['username'].errors?.['required']">User Name is required.</div>
+        </div>
+      </div>
+      <br>
+      
+      <!-- User Role Field -->
+      <div [ngClass]="(itemForm.controls['userrole'].invalid && 
+                        (itemForm.controls['userrole'].dirty || itemForm.controls['userrole'].touched)) ? 'highlighterror' : ''">
+        <div class="form mandatory">
+          <label for="userrole">User Role</label><span>*</span>
+          <select class="form-control" id="userrole" formControlName="userrole">
+            <option value="" disabled>--Select Role--</option>
+            <option *ngFor="let method of role" [value]="method">{{method}}</option>
+          </select>
+          <div *ngIf="itemForm.controls['userrole'].invalid && 
+                       (itemForm.controls['userrole'].dirty || itemForm.controls['userrole'].touched)" class="text-danger">
+            <div *ngIf="itemForm.controls['userrole'].errors?.['required']">User Role is required.</div>
           </div>
         </div>
-    </form>
+      </div>
+      <br>
+      
+      <!-- Password Field -->
+      <div class="form mandatory">
+        <label for="userpassword">Password</label><span>*</span>
+        <input type="password" id="userpassword" formControlName="userpassword" placeholder=""
+          class="form-control" required minlength="5">
+        <div *ngIf="itemForm.controls['userpassword'].invalid && 
+                     (itemForm.controls['userpassword'].dirty || itemForm.controls['userpassword'].touched)" class="text-danger">
+          <div *ngIf="itemForm.controls['userpassword'].errors?.['required']">Password is required.</div>
+          <div *ngIf="itemForm.controls['userpassword'].errors?.['minlength']">Password must be at least 5 characters long.</div>
+        </div>
+      </div>
+      <br>
+      
+      <!-- Confirm Password Field -->
+      <div class="form mandatory">
+        <label for="userpassword2">Confirm Password</label><span>*</span>
+        <input type="password" id="userpassword2" formControlName="userpassword2" placeholder=""
+          class="form-control" required minlength="5">
+        <div *ngIf="itemForm.controls['userpassword2'].invalid && 
+                     (itemForm.controls['userpassword2'].dirty || itemForm.controls['userpassword2'].touched)" class="text-danger">
+          <div *ngIf="itemForm.controls['userpassword2'].errors?.['required']">Confirm Password is required.</div>
+          <div *ngIf="itemForm.controls['userpassword2'].errors?.['minlength']">Confirm Password must be at least 5 characters long.</div>
+          <div *ngIf="itemForm.controls['userpassword2'].value !== itemForm.controls['userpassword'].value && 
+                       (itemForm.controls['userpassword2'].dirty || itemForm.controls['userpassword2'].touched)">
+            Passwords do not match.
+          </div>
+        </div>
+      </div>
+      <br>
+            
+            <!-- Buttons -->
+            <div class="d-flex justify-content-center form mt-3">
+              <button type="button" (click)="backToListItem()" class="btn btn-secondary">
+                <span><i class="fa fa-arrow-left"></i></span> Back
+              </button> &nbsp;&nbsp;
+              <button class="btn btn-primary" type="submit" name="addcustomer">
+                <span>Submit</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
-  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+    <p style="color: white">loading...</p>
+  </ngx-spinner>
+</div>

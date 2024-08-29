@@ -12,7 +12,7 @@ import { HttpserviceService } from 'src/app/httpservice.service';
 })
 export class AddMedicineComponent implements OnInit {
 
-  addmedicine= 'addmedicine';
+  addmedicine= 'viewmedicine';
   itemPrice: any;
   itemName: any;
   medicinetype:any;

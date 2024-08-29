@@ -41,6 +41,7 @@ export class ViewVisitComponent implements OnInit {
   }
 
   addCustomerButtonClicked() {
+    this.sharingservice.setbackbutton("/user/viewvisit");
     this.router.navigate(["/user/addvisit"]);
   }
 
@@ -147,7 +148,7 @@ export class ViewVisitComponent implements OnInit {
             this.ordersList = savedData;
             this.totalOrders =(<any>response).totalcount;
             this.toastr.success(this.searchType+' search success', 'Success!');
-            this.searchType='';
+            this.searchType='searchType';
             this.searchValue='';
             this.isSearchValueDisabled = true;
             this.isSearchButtonDisabled = true;
@@ -257,6 +258,7 @@ export class ViewVisitComponent implements OnInit {
   }
 
   viewVisit(id: any, type: any){
+    this.sharingservice.setbackbutton("/user/viewvisit");
     this.router.navigate(['/user/updatevisit'], {
       queryParams:
        {orderId: id, viewType: type}

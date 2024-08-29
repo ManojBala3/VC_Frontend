@@ -11,8 +11,8 @@ export class HttpserviceService {
 
 
 
-  public local="http://localhost:8080";
-  public server="http://13.211.212.250:8080/VC";
+  public local="http://localhost:8080/venbaclinic";
+  public server="https://backend.nativefoodsindia.com/venbaclinic";
   public omsurl = this.server;
 
   constructor(private http: HttpClient ) { }
@@ -189,6 +189,10 @@ export class HttpserviceService {
       return this.http.get(this.omsurl +'/medicine/searchmedicine/'+data);
     }
 
+  
+    searchuser(data: any,limit: any, offset: any){
+      return this.http.post(this.omsurl +'/user/searchuser?&limit='+limit+"&offset="+offset,data);
+    }
   
 
 

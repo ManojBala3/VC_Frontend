@@ -3,6 +3,7 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs/internal/Subject';
 import { SharingserviceService } from 'src/app/commonservices/sharingservice.service';
 import { HttpserviceService } from 'src/app/httpservice.service';
 
@@ -32,6 +33,7 @@ export class AdduserComponent implements OnInit {
     });
   }
 
+
   ngOnInit(): void {
   }
 
@@ -52,6 +54,8 @@ export class AdduserComponent implements OnInit {
         }
         console.log('Form submitted successfully');
     }else{
+      let data = formdata.value;
+      console.log("data",data)
        // Form is invalid, mark all fields as touched to display error messages
         Object.values(this.itemForm.controls).forEach(control => {
           control.markAsTouched();
@@ -67,14 +71,27 @@ export class AdduserComponent implements OnInit {
       (response) => {
         console.log('Value Received ' + response);
         console.log(response);
-        savedData = (<any>response).medicinename;
-        this.toastr.success(
-           (<any>response).medicinename,
-          'Registeration Success!'
-        );
+        savedData = (<any>response).respcode;
+        if((<any>response).respcode==='00')
+        {
+          this.toastr.success(
+      
+            'Registeration Success!'
+          );
+           
         this.itemForm.reset();
         this.backToListItem();
         this.loader.hide();
+        }
+        else
+        {
+          this.toastr.error(
+            (<any>response).respdesc
+          );
+          this.loader.hide();
+        }
+
+       
       },
       (err) => {
         this.loader.hide();

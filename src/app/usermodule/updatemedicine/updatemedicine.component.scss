@@ -1,16 +1,86 @@
-label{
+/* General Label Styles */
+label {
   font-weight: bold;
   letter-spacing: 1px;
-  
+  color: #333; /* Adjust color for better readability */
+  transition: color 0.3s ease; /* Smooth color transition */
 }
 
+label:hover {
+  color: #F39C12; /* Change color on hover */
+}
 
-  input.ng-invalid.ng-touched.ng-invalid, textarea.ng-invalid.ng-touched.ng-invalid{
-    border: 1px solid red;
-  }
+/* Main Content Padding */
+.main-content {
+  padding-top: 24em; /* Adjusted padding-top to fit the navbar height */
+}
 
-  .update-heading{
-    font-weight: bold;
-    letter-spacing: 1px;
-    color:grey;
+/* Input and Textarea Invalid Styles */
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border: 2px solid red; /* Increased border width for invalid fields */
+  transition: border 0.3s ease; /* Smooth border transition */
+}
+
+input.ng-invalid.ng-touched:focus, textarea.ng-invalid.ng-touched:focus {
+  outline: none; /* Remove default outline */
+  border-color: #F39C12; /* Highlight border color on focus */
+}
+
+/* Heading Styles */
+.update-heading {
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: grey;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.update-heading:hover {
+  color: #2C3E50; /* Change color on hover */
+}
+
+/* Mandatory Field Indicator */
+.mandatory span {
+  color: red;
+}
+
+/* Highlight Error Styles for Select Element */
+.highlighterror select {
+  border: 2px solid red; /* Increased border width for error */
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Red shadow for error */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.highlighterror select:focus {
+  border-color: #F39C12; /* Highlight border color on focus */
+  box-shadow: 0 0 8px rgba(243, 156, 18, 0.6); /* Highlight shadow on focus */
+}
+
+/* Container Styles for Form-Filling */
+.container {
+  margin: 2em auto;
+  padding: 1.5em; /* Increased padding for better spacing */
+  border: 2px solid #F39C12; /* Subtle solid border suitable for form-filling */
+  border-radius: 8px; /* Rounded corners for a softer look */
+  background-color: #fff;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  
+  background-color:  aliceblue;
+}
+
+/* Container Hover Effect */
+
+@media (max-width: 767px) {
+  .main-content {
+    padding-top: 25em; /* Increased padding for mobile */
   }
+}
+
+/* For screens larger than 768px (web view) */
+@media (min-width: 768px) {
+  .main-content {
+    padding-top: 10em; /* Adjusted padding for larger screens */
+  }
+}

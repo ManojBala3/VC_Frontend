@@ -46,11 +46,25 @@ export class ViewuserComponent implements OnInit {
     this.offset = offset ? offset : 0;
     this.limit = limit ? limit : 10;
     let savedData: any[];
-    let data={
-      name:this.searchValue
+    let role;
+    let username;
+    if(this.searchType=='role')
+    {
+      role=this.searchValue;
     }
+    if(this.searchType=='username')
+    {
+      username=this.searchValue
+    }
+  
+    let data={
+      userrole:role,
+      username:username
+     
+    }
+    
     this.loader.show();
-    this.httpservice.searchItems(data, this.limit, this.offset).subscribe(
+    this.httpservice.searchuser(data, this.limit, this.offset).subscribe(
       (response: any) => {
         if(response == null || (<any>response).respcode !='00'){
           savedData = [];
@@ -61,10 +75,12 @@ export class ViewuserComponent implements OnInit {
         }else{
           console.log('Value Received ' + response);
           console.log(response)
-          savedData = (<any>response).medresponse;
-          this.itemsList = savedData;
+          let list = (<any>response).common;
+          this.itemsList = list;
           this.totalItemsCount =(<any>response).totalcount;
           this.loader.hide();
+          this.searchType='searchType';
+          this.searchValue='';
           //this.toastr.success(this.searchType+' search success', 'Success!');
         }
        

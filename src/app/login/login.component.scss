@@ -1,101 +1,201 @@
-
-
-body{
-    background-color: #080710 !important;
-}
-
-.background .shape{
-    height: 200px;
-    width: 200px;
-    position: absolute;
-    border-radius: 50%;
-	
-}
-
-form{
-    height: 520px;
-    width: 400px;
-    background-color: rgba(255,255,255,0.13);
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 50px 35px;
-	background-color: #7B1FA2;
-	
-}
-form *{
-    font-family: 'Poppins',sans-serif;
-    letter-spacing: 0.5px;
-    outline: none;
-    border: none;
-}
-form h3{
-    font-size: 32px;
-    font-weight: 500;
-    line-height: 42px;
-    text-align: center;
-    color: #ffffff;
-}
-
-label{
-    display: block;
-    margin-top: 30px;
-    font-size: 16px;
-    font-weight: 500;
-	
-}
-input{
-    display: block;
-    height: 50px;
-    width: 100%;
-    background-color: rgba(255,255,255,0.07);
-    border-radius: 5px;
-    padding: 0 10px;
-    margin-top: 8px;
-    font-size: 14px;
-    font-weight: 300;
-    color: white !important;
-}
-::placeholder{
-    color: #e5e5e5;
-}
-	button{
-    margin-top: 15px;
-    width: 100%;
+/* Base styles for the login form */
+.login-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1.5em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
-    color: #080710;
-    padding: 10px 0;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 10%;
+}
+
+/* Hover effect for form */
+.login-form:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 1em;
+    color: #007bff;
+    font-size: 1.5em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect for title */
+.form-title:hover {
+    color: #0056b3;
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+/* Hover effect for labels */
+.form-group label:hover {
+    color: #007bff;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus effect for inputs */
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+/* Button styles */
+.btn {
+    width: 100%;
+    padding: 0.75em;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-}
-span
-{
-	color: #080710 !important;
-}
-
-button:disabled,
-button[disabled] {
-    cursor: not-allowed;
-    /* background-color: slategrey; */
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-input.ng-dirty.ng-invalid {
-   
-    color: red !important
-  }
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
 
-  .alert
-  {
-    color: chartreuse !important;
-    font-size: 13px;
-    height: 10px;
-  }
+/* Hover effect for buttons */
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
 
+/* Active effect for buttons */
+.btn-primary:active {
+    background-color: #004085;
+    transform: translateY(1px);
+}
 
+/* Advanced error message styles */
+.alert {
+    position: relative;
+    margin-top: 0.5em;
+    padding: 0.75em;
+    border-radius: 4px;
+    background-color: #f8d7da;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Show error messages */
+.alert.alert-danger {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Error message icon */
+.alert::before {
+    content: '⚠️'; /* Unicode for warning icon */
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    color: #dc3545;
+}
+
+/* Error message text styling */
+.alert-danger div {
+    margin-left: 30px;
+}
+
+/* Error message container */
+.error-message {
+    margin-top: 1em;
+    text-align: center;
+}
+
+/* Error text styling */
+.error-text {
+    color: #dc3545;
+    font-size: 0.9em;
+    font-weight: bold;
+    animation: shake 0.5s ease;
+}
+
+/* Shake animation for error message */
+@keyframes shake {
+    0% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+}
+
+/* Spinner styles */
+.spinner {
+    margin-top: 1em;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .login-form {
+        padding: 1em;
+        max-width: 90%;
+    }
+
+    .form-title {
+        font-size: 1.2em;
+    }
+
+    .form-control {
+        font-size: 0.9em;
+    }
+
+    .btn {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-form {
+        padding: 0.75em;
+        max-width: 95%;
+    }
+
+    .form-title {
+        font-size: 1em;
+    }
+
+    .form-control {
+        font-size: 0.85em;
+        padding: 0.5em;
+    }
+
+    .btn {
+        font-size: 0.85em;
+        padding: 0.5em;
+    }
+
+    .spinner p {
+        font-size: 0.85em;
+    }
+}

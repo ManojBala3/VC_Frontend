@@ -38,6 +38,7 @@ export class ViewqueueComponent implements OnInit {
 
   
   addCustomerButtonClicked() {
+    this.sharingservice.setbackbutton("/user/viewqueue");
     this.router.navigate(["/user/addvisit"]);
   }
 

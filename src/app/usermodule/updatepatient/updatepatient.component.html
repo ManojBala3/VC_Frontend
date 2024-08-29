@@ -1,7 +1,8 @@
 <app-welcome [route]="addpatient"> </app-welcome>
-
+<div class="main-content">
+  <h5 class="text-center update-heading  my-4">UPDATE PATIENT</h5>
 <div class="container mt-1">
-    <h5 class="text-center update-heading  my-4">UPDATE CUSTOMER</h5>
+    
     <form [formGroup]="customerForm"    ng-controller="studentController" role="form">
    
  <div class="row d-flex justify-content-center align-content-center align-items-center">
@@ -73,3 +74,4 @@
   
 </div>
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>
+</div>
