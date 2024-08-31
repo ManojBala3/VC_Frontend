@@ -1,108 +1,112 @@
-<app-welcome  class="highlight" [route]="viewvisit"> </app-welcome>
+<app-welcome class="highlight" [route]="viewvisit"></app-welcome>
 <div class="main-content">
 
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css" rel="stylesheet" >
-<script src="build/main.js"></script>
-<script src='/pdfmake.min.js'></script>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css" rel="stylesheet">
+  <script src="build/main.js"></script>
+  <script src='/pdfmake.min.js'></script>
 
-<h5 class="text-center update-heading  my-4">VIEW ALL VISITS</h5>
+  <h5 class="text-center update-heading my-4">VIEW ALL VISITS</h5>
 
+  <!-- Navigation header: Add Visit, Search, Clear -->
+  <div class="container mt-3">
+    <div class="row align-items-center justify-content-around mobile-responsive">
 
- <!-- navigation header add customer, search, clear start here -->
-
-   <div class="container mt-3">
-    <div class="row d-flex  align-items-center justify-content-around  align-content-center">
-
-
-      <div class="col-2">
-        <button id="addCustomerButton" class="btn btn-success" type="button" (click)="addCustomerButtonClicked()"
-          name="addCustomerButton"> <span> <i class="fa fa-plus"></i></span> Add Visit </button>
+      <!-- Button to add a visit -->
+      <div class="col-md-2 col-sm-4 mb-2">
+        <button id="addCustomerButton" class="btn btn-success btn-block" type="button" (click)="addCustomerButtonClicked()">
+          <i class="fa fa-plus"></i> Add Visit
+        </button>
       </div>
 
-     
-      <div class="col-2">
-        <select [(ngModel)]="searchType" (change)="onSearchTypeChange($event)" class="form-control"
-          placeholder="Search Type" id="searchType">
+      <!-- Select for search type -->
+      <div class="col-md-2 col-sm-4 mb-2">
+        <select [(ngModel)]="searchType" (change)="onSearchTypeChange($event)" class="form-control" id="searchType">
           <option value="searchType">--Search Type--</option>
           <option value="name">Patient Name</option>
           <option value="phonenumber">Phone Number</option>
           <option value="patientid">Patient ID</option>
-          
-          
-         
         </select>
       </div>
-      <div class="col-2">
-        <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue" (keydown.enter)="searchVisits()"
-          placeholder="Search Value" class="form-control" />
+
+      <!-- Input for search value -->
+      <div class="col-md-2 col-sm-4 mb-2">
+        <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue"
+          (keydown.enter)="searchVisits()" placeholder="Search Value" class="form-control" />
       </div>
 
-      <div class="col-3">
+      <!-- Search and Clear buttons -->
+      <div class="col-md-3 col-sm-6 mb-2 d-flex justify-content-center">
         <button [disabled]="isSearchButtonDisabled" type="button" (click)="searchVisits()" class="btn btn-primary">
-          <span> <i class="fa fa-search"></i></span> Search </button>
-          &nbsp;&nbsp;&nbsp;
-        <button type="button" (click)="clearSearchCustomers()" class="btn btn-secondary"> <span> <i
-              class="fa fa-remove"></i></span> Clear </button>
+          <i class="fa fa-search"></i> Search
+        </button>
+        <button type="button" (click)="clearSearchCustomers()" class="btn btn-secondary ml-3">
+          <i class="fa fa-remove"></i> Clear
+        </button>
       </div>
-      <div class="col-2 ">
-        <button id="totalCustomers" class="btn btn-info" type="button" name="totalCustomers"> Total Visits: <span
-            class="badge rounded-pill text-bg-dark">{{totalOrders}} </span></button>
+
+      <!-- Total Visits button -->
+      <div class="col-md-2 col-sm-4 mb-2">
+        <button id="totalCustomers" class="btn btn-info btn-block" type="button">
+          Total Visits: <span class="badge badge-dark">{{totalOrders}}</span>
+        </button>
       </div>
     </div>
+  </div>
+  <!-- Navigation header end -->
 
-  </div> 
-
-  <!-- navigation header add customer, search, clear end here -->
-
-
-
-
-<!-- order data tables display here -->
-
-<div class="container mt-3">
-  <div class="row">
+  <!-- Order data tables display -->
+  <div class="container mt-3">
     <div class="table-responsive">
-      <table id="example1" class="table table-striped" style="width:100%">
+      <table id="example1" class="table table-striped">
         <thead class="table-header">
           <tr>
-
-            <td>Patient ID</td>
-            <td>Patient Name</td>
-            <td>Phone Number <span><i class="fa fa-phone"></i></span></td>
-            <td>Visit Date <span><i class="fa fa-calendar"></i></span></td>
-            <td>Gender</td>
-            <td>Age</td>
-            <td>Actions</td>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Phone Number <i class="fa fa-phone"></i></th>
+            <th>Visit Date <i class="fa fa-calendar"></i></th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="totalOrders=='0'" ><td colspan="7">No Records to display</td> </tr>
-            <tr *ngFor="let order of ordersList | paginate: { itemsPerPage: 10, currentPage: currentPageNumber, totalItems: totalOrders };let i=index;">
-              <td data-label="Order Id">{{order.custid}}</td>
-            <td data-label="Order Id">{{order.customer_name}}</td>
-            <td data-label="Order Date">{{order.mobile_no}}</td>
-            <td data-label="Order Status">{{order.visitdate}}</td>
-            <td data-label="Order Value">{{order.gender}}</td>
-            <td data-label="Customer ID">{{order.age}}</td>
-            
-            <td class="d-flex">
-              <button type="button" (click)="viewVisit(order.visit_id, 'view')" class="btn btn-sm btn-success" style=" margin-left: 20%; " data-toggle="tooltip" data-placement="right" title="Edit"><span> <i class="fa fa-eye"></i></span> </button>
-              &nbsp;&nbsp;  &nbsp;&nbsp; 
-              <button type="button" (click)="downloadFullInvoice(order.visit_id)" class="btn btn-sm btn-info" ><span> <i class="fa fa-download" data-toggle="tooltip" data-placement="right" title="Download"></i></span> </button>
-              &nbsp;&nbsp;  &nbsp;&nbsp; 
-              <button *ngIf="isAdmin" type="button" (click)="updatevisit(order.visit_id)" class="btn btn-sm btn-warning"  data-toggle="tooltip" data-placement="right" title="Edit"><span> <i class="fa fa-edit"></i></span> </button>
-              &nbsp;&nbsp;  &nbsp;&nbsp;  
-              <button *ngIf="isAdmin" type="button" (click)="deleteVisit(order.visit_id)" class="btn btn-sm btn-danger"  data-toggle="tooltip" data-placement="right" title="Delete"><span> <i class="fa fa-trash"></i></span> </button>
+          <tr *ngIf="totalOrders=='0'">
+            <td colspan="7" class="text-center">No Records to display</td>
+          </tr>
+          <tr *ngFor="let order of ordersList | paginate: { itemsPerPage: 10, currentPage: currentPageNumber, totalItems: totalOrders }; let i = index;">
+            <td>{{order.custid}}</td>
+            <td>{{order.customer_name}}</td>
+            <td>{{order.mobile_no}}</td>
+            <td>{{order.visitdate}}</td>
+            <td>{{order.gender}}</td>
+            <td>{{order.age}}</td>
+            <td class="d-flex justify-content-around">
+              <button type="button" (click)="viewVisit(order.visit_id, 'view')" class="btn btn-sm btn-success" title="View">
+                <i class="fa fa-eye"></i>
+              </button>
+              <button type="button" (click)="downloadFullInvoice(order.visit_id)" class="btn btn-sm btn-info" title="Download">
+                <i class="fa fa-download"></i>
+              </button>
+              <button *ngIf="isAdmin" type="button" (click)="updatevisit(order.visit_id)" class="btn btn-sm btn-warning" title="Edit">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button *ngIf="isAdmin" type="button" (click)="deleteVisit(order.visit_id)" class="btn btn-sm btn-danger" title="Delete">
+                <i class="fa fa-trash"></i>
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <div *ngIf="totalOrders!='0'"><pagination-controls (pageChange)="onViewCustomerPaginationPageChange($event)"></pagination-controls></div>
+      <div *ngIf="totalOrders != '0'" class="d-flex justify-content-center">
+        <pagination-controls (pageChange)="onViewCustomerPaginationPageChange($event)"></pagination-controls>
+      </div>
     </div>
   </div>
+  <!-- Order data tables end -->
+
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+    <p style="color: white">Loading...</p>
+  </ngx-spinner>
 </div>
-<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>
-</div>
-<!-- order data tables end here -->

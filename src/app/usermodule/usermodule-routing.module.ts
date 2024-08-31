@@ -12,20 +12,22 @@ import { UpdateMedicineComponent } from './updatemedicine/updatemedicine.compone
 import { ViewqueueComponent } from './viewqueue/viewqueue.component';
 import { ViewuserComponent } from './viewuser/viewuser.component';
 import { AdduserComponent } from './adduser/adduser.component';
+import { AuthGuard } from '../auth.guard';
 
 const routes: Routes = [
-  { path: "welcome", component: WelcomeComponent},
-  { path: "addpatient", component: AddPatientComponent},
-  { path: "updatepatient", component: UpdatePatientComponent},
-  { path: "addvisit", component: AddVisitComponent},
-  { path: "viewvisit", component: ViewVisitComponent},
-  { path: "updatevisit", component: UpdateVisitComponent},
-  { path: "addmedicine", component: AddMedicineComponent},
-  { path: "viewmedicine", component: ViewMedicineComponent},
-  { path: "updatemedicine", component: UpdateMedicineComponent},
-  { path: "viewqueue", component: ViewqueueComponent},
-  { path: "viewuser", component: ViewuserComponent},
-  { path: "adduser", component: AdduserComponent},
+  { path: "welcome", component: WelcomeComponent,canActivate: [AuthGuard]},
+  { path: "addpatient", component: AddPatientComponent,canActivate: [AuthGuard]},
+  { path: "addpatient", component: AddPatientComponent,canActivate: [AuthGuard]},
+  { path: "updatepatient", component: UpdatePatientComponent,canActivate: [AuthGuard]},
+  { path: "addvisit", component: AddVisitComponent,canActivate: [AuthGuard]},
+  { path: "viewvisit", component: ViewVisitComponent,canActivate: [AuthGuard]},
+  { path: "updatevisit", component: UpdateVisitComponent,canActivate: [AuthGuard]},
+  { path: "addmedicine", component: AddMedicineComponent,canActivate: [AuthGuard]},
+  { path: "viewmedicine", component: ViewMedicineComponent,canActivate: [AuthGuard]},
+  { path: "updatemedicine", component: UpdateMedicineComponent,canActivate: [AuthGuard]},
+  { path: "viewqueue", component: ViewqueueComponent,canActivate: [AuthGuard]},
+  { path: "viewuser", component: ViewuserComponent,canActivate: [AuthGuard]},
+  { path: "adduser", component: AdduserComponent,canActivate: [AuthGuard]},
 ];
 
 @NgModule({

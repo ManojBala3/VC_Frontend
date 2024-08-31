@@ -231,3 +231,36 @@ body {
   }
 }
 
+
+// Mobile responsiveness styles
+@media (max-width: 768px) {
+  .mobile-responsive {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mobile-responsive .col-2,
+  .mobile-responsive .col-3 {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .mobile-responsive .col-2 {
+    margin-bottom: 15px;
+  }
+
+  .mobile-responsive .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .mobile-responsive select.form-control,
+  .mobile-responsive input.form-control {
+    width: 100%;
+  }
+
+  .mobile-responsive .btn-info {
+    margin-top: 10px;
+  }
+}
+
