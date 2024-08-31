@@ -290,6 +290,8 @@
             <button  type="button" (click)="backToViewCustomers()" class="btn btn-secondary"><span> <i class="fa fa-arrow-left"></i></span> Back</button>
              &nbsp;&nbsp;
             <button *ngIf="viewType=='update'" type="submit" class="btn btn-warning"><span> <i class="fa fa-refresh"></i></span> Update</button>
+            &nbsp;&nbsp;
+            <button *ngIf="viewType=='update'"  type="button" (click)="updatequeue(orderForm)" class="btn btn-warning"><span> <i class="fa fa-refresh"></i></span> Update Queue</button>
           </div>
         </div>
       </div>

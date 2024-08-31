@@ -351,6 +351,8 @@ createProduct():FormGroup{
   }
 
   updateVisitData(formData: any){
+
+    console.log('updateVisitData');
     if(this.orderForm.valid){
       if(confirm("Are you sure to update the Visit ?")) {
       // Form is valid, perform your desired actions here
@@ -367,7 +369,14 @@ createProduct():FormGroup{
         {
           this.loader.hide();
           this.toastr.success('Record Updated Successfully');
-          this.router.navigate(["/user/viewvisit"]);
+          if(this.sharingservice.getbackbutton()!="" && this.sharingservice.getbackbutton()!=null)
+            {
+              this.router.navigate([this.sharingservice.getbackbutton()]); 
+            }
+            else
+            {
+              this.router.navigate(["/user/viewvisit"]);
+            }
         }
         else{
           this.loader.hide();
@@ -475,6 +484,68 @@ createProduct():FormGroup{
       this.orderForm.controls['se'].setValue('');
     }
   }
+
+  updatequeue(formData:any)
+  {
+    console.log("update queue");
+    if(this.orderForm.controls['customername'].value!="" && this.orderForm.controls['customermobile'].value!="" && this.orderForm.controls['customergender'].value!="")
+    {
+      this.loader.show();
+      let data = formData.value;
+      data['addqueue']=true;
+      data['visitid'] = this.orderId;
+      console.log(data);
+      this.httpservice.updateOrder(data).subscribe(
+        (response: any) => {
+          console.log('Value Received ' + response);
+          console.log(response);
+          let savedData = (<any>response).respcode;
+          if((<any>response).respcode=='00')
+          {
+            this.loader.hide();
+            this.toastr.success('','Patient added to Queue');
+            if(this.sharingservice.getbackbutton()!="" && this.sharingservice.getbackbutton()!=null)
+              {
+                this.router.navigate([this.sharingservice.getbackbutton()]); 
+              }
+              else
+              {
+                this.router.navigate(["/user/viewvisit"]);
+              }
+          }
+          else{
+            this.loader.hide();
+            this.toastr.success((<any>response).respdesc,'Error');
+            return;
+          }
+        },
+        (err: any) => {
+          this.loader.hide();
+          console.log('Error caught at Order ' + err);
+          this.toastr.error('Order save failed', 'Error!');
+        },
+        () => console.log('Processing Complete.')
+      );
+    }
+    else{
+      console.log("Please ",this.orderForm.controls['customergender'])
+
+      if(this.orderForm.controls['customername'].value=="")
+      {
+        this.orderForm.controls['customername'].markAsTouched();
+      }
+      if(this.orderForm.controls['customermobile'].value=="")
+      {
+        this.orderForm.controls['customermobile'].markAsTouched();
+      }
+      if(this.orderForm.controls['customergender'].value=="")
+      {
+        this.orderForm.controls['customergender'].markAsTouched();
+      }
+      return;
+    }
+  }
+
 
 }
 
