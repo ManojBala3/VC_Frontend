@@ -4,10 +4,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { SharingserviceService } from 'src/app/commonservices/sharingservice.service';
 import { HttpserviceService } from 'src/app/httpservice.service';
-// const pdfMake1 = require('pdfmake/build/pdfmake.js');
-// const pdfFonts = require("pdfmake/build/vfs_fonts");
-// pdfMake1.vfs = pdfFonts.pdfMake.vfs;
-// import * as pdfMake from 'pdfmake/build/pdfmake';
 
 @Component({
   selector: 'app-viewvisit',
@@ -208,42 +204,25 @@ export class ViewVisitComponent implements OnInit {
   }
   
 
-  downloadFullInvoice(orderId: any) {
+  downloadFullInvoice(orderId: any){
     this.loader.show();
     this.httpservice.downloadFullInvoice(orderId).subscribe(
       response => {
         console.log(response);
-        const file = new Blob([response], { type: 'application/pdf' });
+        const file  =  new Blob([response], { type: 'application/pdf' });
         const fileURL = URL.createObjectURL(file);
-  
-        // Create an iframe to load the PDF file and trigger print dialog
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = fileURL;
-  
-        // Append the iframe to the document body
-        document.body.appendChild(iframe);
-  
-        // Wait for the iframe to load and then print
-        iframe.onload = () => {
-          iframe.contentWindow?.focus();
-          iframe.contentWindow?.print();
-          
-          // Remove the iframe after printing
-          document.body.removeChild(iframe);
-        };
-  
         this.loader.hide();
+        // You can open the PDF in a new tab or perform any further processing
+       window.open(fileURL, '_blank');
       },
       err => {
-        console.log("Error caught at Subscriber " + err);
+        console.log("Error caught at Subscriber " + err)
         this.loader.hide();
-        this.toastr.error('Order ID: ' + orderId + ' download failed', 'Error!');
+        this.toastr.error('Order ID: '+ orderId +' download failed', 'Error!');
       },
       () => console.log("Processing Complete.")
-    );
+    )
   }
-  
 
 
   onSearchTypeChange(event: any){
