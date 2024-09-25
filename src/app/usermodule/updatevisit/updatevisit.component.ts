@@ -274,7 +274,7 @@ createProduct():FormGroup{
           {
             this.showabcothers=true;
           }
-          if(this.vitalsdropdown.indexOf(this.customersList.vitals)==-1 && (this.customersList.vitals.value)!=undefined)
+          if((this.vitalsdropdown.indexOf(this.customersList.vitals)==-1 && (this.customersList.vitals.value)!=undefined) || this.customersList.vitals.includes("bpm"))
           {
             this.showvitalsothers=true;
           }
