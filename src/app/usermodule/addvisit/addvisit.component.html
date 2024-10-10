@@ -210,9 +210,9 @@
           </div>
         </div>
   
-        <div formArrayName="products" *ngFor="let t of products.controls; let i = index">
-          <br />
-          <div class="row" formGroupName="{{i}}">
+        <div class="product-clone-container" formArrayName="products" *ngFor="let t of products.controls; let i = index">
+       
+          <div class="row custom-row-spacing" formGroupName="{{i}}">
   
             <div class="col-md-1" style=" text-align: center; ">
               <span class="">{{i+1}}</span>
