@@ -81,10 +81,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Karur:build:production"
+              "browserTarget": "Karur:build:production"
             },
             "development": {
-              "buildTarget": "Karur:build:development"
+              "browserTarget": "Karur:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -92,7 +92,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "Karur:build"
+            "browserTarget": "Karur:build"
           }
         },
         "test": {
