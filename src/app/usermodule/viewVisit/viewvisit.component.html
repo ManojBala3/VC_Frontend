@@ -14,7 +14,7 @@
     <div class="row align-items-center justify-content-around mobile-responsive">
 
       <!-- Button to add a visit -->
-      <div class="col-md-2 col-sm-4 mb-2">
+      <div *ngIf="isAdmin"class="col-md-2 col-sm-4 mb-2">
         <button id="addCustomerButton" class="btn btn-success btn-block" type="button" (click)="addCustomerButtonClicked()">
           <i class="fa fa-plus"></i> Add Visit
         </button>

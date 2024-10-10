@@ -91,3 +91,7 @@ input.ng-invalid.ng-touched:focus, textarea.ng-invalid.ng-touched:focus {
   align-items: center;      /* Center vertically */
   height: 100px;            /* Set appropriate height */
 }
+
+.row>* {
+  max-height: max-content;
+}

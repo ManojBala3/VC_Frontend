@@ -37,6 +37,7 @@ export class AddVisitComponent implements OnInit {
   customername: any = "";
   customephonenumber: any;
   customeremail: any;
+  oldPatientId: any;
   customerage:any;
   customergender:any;
   abc:any;
@@ -52,6 +53,7 @@ export class AddVisitComponent implements OnInit {
   showentothers:boolean=false;
   showseothers:boolean=false;
   customermobile:any;
+  isAdmin: boolean = false;
 
   statushealth = ['Stable', 'Unstable','Others'];
   vitalsdropdown=['Stable','HR: bpm / SPO2: % / T –  F / BP:  mmhg','others']
@@ -65,7 +67,10 @@ export class AddVisitComponent implements OnInit {
                     'For local application twice a day for  days',
                     'For local application thrice a day for days',
                     'Mix with 200 ml clean water -  ml after each loose stool and vomiting',
-                    ' ml if temperature > 99.4 F with 6 hours gap'
+                    ' ml if temperature > 99.4 F with 6 hours gap',
+                    '0.5 ml intramuscular stat given',
+                    '0.5 ml subcutaneous stat given',
+                    '2 ml oral stat given'
                     ];
   selectedItemName: any = "selectItemName";
 
@@ -81,6 +86,7 @@ export class AddVisitComponent implements OnInit {
       customerage: new UntypedFormControl(['', Validators.required]),
       customergender: new UntypedFormControl(['']),
       customeremail: new UntypedFormControl(['']),
+      oldPatientId: new UntypedFormControl(['']),
       abc: new UntypedFormControl(['', Validators.required]),
       vitals: new UntypedFormControl(['', Validators.required]),
       customername: new UntypedFormControl(['', Validators.required]),
@@ -102,6 +108,12 @@ export class AddVisitComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(localStorage.getItem('userrole')=='Admin')
+      {
+        this.isAdmin=true;
+      }
+
+
 // order form starts here
 
     this.mindate=this.datepipe.transform((new Date), 'yyyy-MM-dd');
@@ -114,6 +126,7 @@ export class AddVisitComponent implements OnInit {
         customerageweek: ['', ], 
         customerageday: ['', ],      
         customeremail: ['', ],
+        oldPatientId: ['', ],
         customergender: ['', [Validators.required]],    
         abc: ['', [Validators.required]],
         vitals: ['', [Validators.required]],
@@ -227,6 +240,8 @@ createProduct():FormGroup{
             //   this.orderForm.controls['customermobile'].disable();
             // }
             this.orderForm.controls['customeremail'].setValue(this.customersList[0].emailid);
+            this.orderForm.controls['oldPatientId'].setValue(this.customersList[0].emailid);
+            
            /*  if(this.customersList[0].emailid!=null && this.customersList[0].emailid!='')
             {
               this.orderForm.controls['customeremail'].disable();
@@ -274,6 +289,7 @@ createProduct():FormGroup{
     this.orderForm.controls['customergender'].enable();
     this.orderForm.controls['customermobile'].enable();
     this.orderForm.controls['customeremail'].enable();
+    this.orderForm.controls['oldPatientId'].enable();
     this.searchValue="";
     this.custid="";
     this.showabcothers=false;

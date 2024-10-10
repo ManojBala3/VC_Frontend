@@ -30,6 +30,7 @@ export class UpdateVisitComponent implements OnInit {
   totalCustomers: any
   orderForm: FormGroup;
   viewType: any;
+  navigationType: any;
   listmedicine:any = [];
   searchresponse!: Map<any, any>;
   clickedAddOrderButton: boolean = false
@@ -43,6 +44,7 @@ export class UpdateVisitComponent implements OnInit {
   customeraddress:any ="";
   customephonenumber: any;
   customeremail: any;
+  oldPatientId: any;
   customerzipcode: any;
   customerId: any;
   orderId: any;
@@ -61,15 +63,19 @@ export class UpdateVisitComponent implements OnInit {
   selectedItemName: any = "selectItemName";
   advicedropdown=['Plenty of warm fluids & Salt water gargling','Plenty of warm fluids & Bland diet','Plenty of warm fluids']; 
   medicineothersdd=['For local application once  a day for  days',
-                    'For local application twice a day for  days',
-                    'For local application thrice a day for days',
-                    'Mix with 200 ml clean water -  ml after each loose stool and vomiting',
-                    ' ml if temperature > 99.4 F with 6 hours gap'
-                    ];
+      'For local application twice a day for  days',
+      'For local application thrice a day for days',
+      'Mix with 200 ml clean water -  ml after each loose stool and vomiting',
+      ' ml if temperature > 99.4 F with 6 hours gap',
+      '0.5 ml intramuscular stat given',
+      '0.5 ml subcutaneous stat given',
+      '2 ml oral stat given'
+      ];
 
   formGroup: FormGroup;
   showOrderForm: boolean = false;
 
+  isAdmin: boolean = false;
   
   constructor(private router: Router, private route: ActivatedRoute,private httpservice:HttpserviceService, private toastr: ToastrService,
     private formBuilder: FormBuilder,private loader:NgxSpinnerService,public datepipe: DatePipe,private changeDetection: ChangeDetectorRef,private sharingservice: SharingserviceService)
@@ -78,6 +84,7 @@ export class UpdateVisitComponent implements OnInit {
       customerage: new UntypedFormControl(['', Validators.required]),
       customergender: new UntypedFormControl(['']),
       customeremail: new UntypedFormControl(['']),
+      oldPatientId: new UntypedFormControl(['']),
       abc: new UntypedFormControl(['', Validators.required]),
       vitals: new UntypedFormControl(['', Validators.required]),
       customername: new UntypedFormControl(['', Validators.required]),
@@ -110,6 +117,11 @@ export class UpdateVisitComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(localStorage.getItem('userrole')=='Admin')
+      {
+        this.isAdmin=true;
+      }
+
 // order form starts here
 this.mindate=this.datepipe.transform((new Date), 'yyyy-MM-dd');
     this.orderForm = this.formBuilder.group(
@@ -120,6 +132,7 @@ this.mindate=this.datepipe.transform((new Date), 'yyyy-MM-dd');
         customerageweek: ['', ], 
         customerageday: ['', ],      
         customeremail: ['', ],
+        oldPatientId: ['', ],
         customergender: ['', [Validators.required]],    
         abc: ['', [Validators.required]],
         vitals: ['', [Validators.required]],
@@ -149,7 +162,10 @@ this.mindate=this.datepipe.transform((new Date), 'yyyy-MM-dd');
     this.route.queryParams.subscribe(params => {
       this.orderId = params['orderId'];
       this.viewType =  params['viewType'];
+      this.navigationType =  params['navigationType'];
     });
+
+    
 
     this.getOrderDetailsByID(this.orderId);
     //this.addProduct();
@@ -160,7 +176,9 @@ this.mindate=this.datepipe.transform((new Date), 'yyyy-MM-dd');
       this.orderForm.disable();
       this.orderForm.controls['products'].disable();
       const customerId = document.getElementById('customerId') as HTMLInputElement;
-  }
+   } if(this.navigationType == 'editQueue'){
+
+   }
   }
 
   searchmedicine(id:number)
@@ -285,6 +303,7 @@ createProduct():FormGroup{
           console.log(this.showabcothers,this.showvitalsothers,this.showentothers,this.showseothers);
           this.orderForm.controls['customername'].setValue(this.customersList.customername);
           this.orderForm.controls['customeremail'].setValue(this.customersList.customeremail);
+          this.orderForm.controls['oldPatientId'].setValue(this.customersList.patientid);
           this.orderForm.controls['comments'].setValue(this.customersList.comments);
           this.orderForm.controls['nextreview'].setValue(this.customersList.nextreview);
           this.orderForm.controls['customerageday'].setValue(this.ignorezero(this.customersList.customerageday));

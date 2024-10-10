@@ -176,7 +176,7 @@ export class ViewqueueComponent implements OnInit {
     this.sharingservice.setbackbutton("/user/viewqueue");
     this.router.navigate(['/user/updatevisit'], {
       queryParams:
-       {orderId: visitid, viewType: 'update'}
+       {orderId: visitid, viewType: 'update', navigationType: 'editQueue'}
     })
     console.log('success');
   }
