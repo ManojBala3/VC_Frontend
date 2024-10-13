@@ -117,9 +117,11 @@ export class UpdateVisitComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(sessionStorage.getItem('userrole')=='Admin')
+    if(sessionStorage.getItem('userrole')==='Admin')
       {
         this.isAdmin=true;
+      }else{
+        this.isAdmin=false;
       }
 
 // order form starts here

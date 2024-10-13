@@ -13,7 +13,7 @@ export class HttpserviceService {
 
   public local="http://localhost:8080/venbaclinic";
   public server="https://backend.nativefoodsindia.com/venbaclinic";
-  public omsurl = this.local;
+  public omsurl = this.server;
 
   constructor(private http: HttpClient ) { }
 
