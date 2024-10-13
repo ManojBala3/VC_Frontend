@@ -65,7 +65,8 @@ export class AddVisitComponent implements OnInit {
                     'For local application twice a day for  days',
                     'For local application thrice a day for days',
                     'Mix with 200 ml clean water -  ml after each loose stool and vomiting',
-                    ' ml if temperature > 99.4 F with 6 hours gap'
+                    ' ml if temperature > 99.4 F with 6 hours gap',
+                    'test1 ,test2'
                     ];
   selectedItemName: any = "selectItemName";
 

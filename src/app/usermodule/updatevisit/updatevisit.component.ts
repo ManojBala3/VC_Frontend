@@ -169,7 +169,7 @@ this.mindate=this.datepipe.transform((new Date), 'yyyy-MM-dd');
     let lastClone: any = this.products.controls? this.products.controls[id]: '';
     var value=lastClone.get('drugname').value;
     console.log(value.length);
-    if(value==null || value=="" || value.length<4)
+    if(value==null || value=="" || value.length<2)
     {
       //this.toastr.error('Kindly enter some value to search', 'Error');
       return;

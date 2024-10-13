@@ -153,3 +153,7 @@ input.ng-invalid.ng-touched:focus, textarea.ng-invalid.ng-touched:focus {
   background-color: #f8f9fa;
   border-bottom: 1px solid #ddd;
 }
+
+.row>* {
+  max-height: max-content;
+}
