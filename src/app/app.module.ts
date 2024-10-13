@@ -48,7 +48,7 @@ import { LoadingInterceptor } from './commonservices/loading.interceptor';
 }),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }  ],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

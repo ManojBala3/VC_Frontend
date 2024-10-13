@@ -64,7 +64,7 @@ export class AdduserComponent implements OnInit {
     return;
   }
     let data = formdata.value;
-    data['createdby'] = localStorage.getItem('username');
+    data['createdby'] = sessionStorage.getItem('username');
    this.loader.show();
     let savedData;
     this.httpservice.createUser(data).subscribe(

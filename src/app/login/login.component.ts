@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    localStorage.clear();
+    sessionStorage.clear();
   }
   
 
@@ -63,8 +63,9 @@ export class LoginComponent implements OnInit {
       this.sharingservice.isAdmin = false;
       if(data['respcode']=='00')
       {
-        localStorage.setItem('username',username+"");
-        localStorage.setItem('userrole',common['role']+"");
+        sessionStorage.setItem('username',username+"");
+        sessionStorage.setItem('userrole',common['role']+"");
+        sessionStorage.setItem('usertoken',"Bearer"+common['token']);
         this.loader.hide();
         this.route.navigate(['/user/viewqueue']);
       }

@@ -10,11 +10,11 @@ export class AuthService {
 
   // Check if user is logged in
   isLoggedIn(): boolean {
-    return localStorage.getItem('username') !=null ;
+    return sessionStorage.getItem('username') !=null ;
   }
 
   // Logout the user
   logout(): void {
-    localStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('isLoggedIn');
   }
 }

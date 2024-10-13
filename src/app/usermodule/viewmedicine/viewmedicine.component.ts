@@ -29,7 +29,7 @@ export class ViewMedicineComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllItems();
-    if(localStorage.getItem('userrole')=='Admin')
+    if(sessionStorage.getItem('userrole')=='Admin')
     {
       this.isAdmin=true;
     }

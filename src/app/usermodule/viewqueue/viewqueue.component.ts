@@ -29,7 +29,7 @@ export class ViewqueueComponent implements OnInit {
    }
 
    ngOnInit(): void {
-    if(localStorage.getItem('userrole')=='Admin')
+    if(sessionStorage.getItem('userrole')=='Admin')
     {
       this.isAdmin=true;
     }

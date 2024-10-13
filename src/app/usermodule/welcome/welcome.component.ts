@@ -22,14 +22,14 @@ export class WelcomeComponent implements OnInit{
   {
    console.log(this.route);
    
-    if(localStorage.getItem('username')!=null && localStorage.getItem('username')!="")
+    if(sessionStorage.getItem('username')!=null && sessionStorage.getItem('username')!="")
     {
       this.showuser=true;
-      this.username=localStorage.getItem('username');
+      this.username=sessionStorage.getItem('username');
       
     }
-    console.log('user is ',localStorage.getItem('userrole'));
-    if(localStorage.getItem('userrole')!=null && localStorage.getItem('userrole')=='Admin')
+    console.log('user is ',sessionStorage.getItem('userrole'));
+    if(sessionStorage.getItem('userrole')!=null && sessionStorage.getItem('userrole')=='Admin')
     {
       console.log('user is admin');
       this.isAdmin = true;

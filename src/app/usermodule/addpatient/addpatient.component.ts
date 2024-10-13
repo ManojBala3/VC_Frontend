@@ -109,7 +109,7 @@ export class AddPatientComponent implements OnInit {
   searchText: string = '';
 
   ngOnInit(): void {
-    if(localStorage.getItem('userrole')=='Admin')
+    if(sessionStorage.getItem('userrole')=='Admin')
     {
       this.isAdmin=true;
     }
