@@ -175,7 +175,7 @@ createProduct():FormGroup{
     night:['',],
     beforefood:[false,],
     afterfood:[false,],
-    duration:[1,],
+    duration:["3 days",],
     addinfo:['',]
 
   })
@@ -339,7 +339,7 @@ createProduct():FormGroup{
       (err: any) => {
         this.loader.hide();
         console.log('Error caught at Order ' + err);
-        this.toastr.error('Order save failed', 'Error!');
+        this.toastr.error('Data save failed', 'Error!');
       },
       () => console.log('Processing Complete.')
     );
@@ -571,7 +571,7 @@ createProduct():FormGroup{
         (err: any) => {
           this.loader.hide();
           console.log('Error caught at Order ' + err);
-          this.toastr.error('Order save failed', 'Error!');
+          this.toastr.error('Data save failed', 'Error!');
         },
         () => console.log('Processing Complete.')
       );

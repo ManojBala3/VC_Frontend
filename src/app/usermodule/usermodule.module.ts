@@ -20,11 +20,12 @@ import { UpdateMedicineComponent } from './updatemedicine/updatemedicine.compone
 import { ViewqueueComponent } from './viewqueue/viewqueue.component';
 import { ViewuserComponent } from './viewuser/viewuser.component';
 import { AdduserComponent } from './adduser/adduser.component';
+import { DateFormatPipe } from './date-format.pipe';
 
 @NgModule({
   declarations: 
   [WelcomeComponent,AddPatientComponent,
-    UpdatePatientComponent, AddVisitComponent, ViewVisitComponent, UpdateVisitComponent, AddMedicineComponent, ViewMedicineComponent, UpdateMedicineComponent, ViewqueueComponent, ViewuserComponent, AdduserComponent],
+    UpdatePatientComponent, AddVisitComponent, ViewVisitComponent, UpdateVisitComponent, AddMedicineComponent, ViewMedicineComponent, UpdateMedicineComponent, ViewqueueComponent, ViewuserComponent, AdduserComponent, DateFormatPipe],
   imports: [
     CommonModule,
     UsermoduleRoutingModule,

@@ -8,7 +8,7 @@
   <div class="row d-flex  align-items-center justify-content-around  align-content-center px-lg-5 px-md-3">
     
     <!-- Add Medicine Button -->
-    <div class="col-2">
+    <div class="col-2" *ngIf="isAdmin">
       <button id="additem" class="btn btn-success w-100" type="button" (click)="addItemDetails()">
         <i class="fa fa-plus"></i> Add Medicine
       </button>
