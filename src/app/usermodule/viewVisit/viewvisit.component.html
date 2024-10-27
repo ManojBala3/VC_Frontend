@@ -27,14 +27,20 @@
           <option value="name">Patient Name</option>
           <option value="phonenumber">Phone Number</option>
           <option value="patientid">Patient ID</option>
+          <option value="visitdate">Visit Date</option>
         </select>
       </div>
 
       <!-- Input for search value -->
       <div class="col-md-2 col-sm-4 mb-2">
-        <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue"
-          (keydown.enter)="searchVisits()" placeholder="Search Value" class="form-control" />
-      </div>
+        <!-- Date picker input for visit date -->
+        <input *ngIf="searchType === 'visitdate'" [disabled]="isSearchValueDisabled" type="date" id="searchValue" [(ngModel)]="searchValue"
+            (change)="searchVisits()" placeholder="Search by Visit Date" class="form-control" />
+    
+        <!-- Text input for other search types -->
+        <input *ngIf="searchType !== 'visitdate'" [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue"
+            (keydown.enter)="searchVisits()" placeholder="Search Value" class="form-control" />
+    </div>
 
       <!-- Search and Clear buttons -->
       <div class="col-md-3 col-sm-6 mb-2 d-flex justify-content-center">

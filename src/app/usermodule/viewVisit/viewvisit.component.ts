@@ -116,6 +116,7 @@ export class ViewVisitComponent implements OnInit {
     let name;
     let phonenumber;
     let customerid;
+    let visitdate;
     if(this.searchType=='name')
     {
         name=this.searchValue;
@@ -128,10 +129,15 @@ export class ViewVisitComponent implements OnInit {
     {
       customerid=this.searchValue
     }
+    if (this.searchType == 'visitdate' && this.searchValue) {
+      const date = new Date(this.searchValue);
+        visitdate = date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    }
     let data={
       name:name,
       mobilenumber:phonenumber,
-      custid:customerid
+      custid:customerid,
+      visitdate: visitdate
     }
     this.httpservice.searchvisits(data, this.limit, this.offset).subscribe(
       response => {
