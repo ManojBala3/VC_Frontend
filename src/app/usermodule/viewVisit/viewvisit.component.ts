@@ -101,7 +101,7 @@ export class ViewVisitComponent implements OnInit {
 )
   }
 
-  searchVisits(limit?: any, offset?: any)
+   searchVisits(limit?: any, offset?: any)
   {
     this.loader.show();
     if(this.searchValue==null || this.searchValue=='')

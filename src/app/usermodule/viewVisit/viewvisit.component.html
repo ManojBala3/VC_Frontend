@@ -32,7 +32,7 @@
       </div>
 
       <!-- Input for search value -->
-      <div class="col-md-2 col-sm-4 mb-2">
+       <div class="col-md-2 col-sm-4 mb-2">
         <!-- Date picker input for visit date -->
         <input *ngIf="searchType === 'visitdate'" [disabled]="isSearchValueDisabled" type="date" id="searchValue" [(ngModel)]="searchValue"
             (change)="searchVisits()" placeholder="Search by Visit Date" class="form-control" />
