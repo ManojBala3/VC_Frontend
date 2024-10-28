@@ -35,16 +35,16 @@
        <div class="col-md-2 col-sm-4 mb-2">
         <!-- Date picker input for visit date -->
         <input *ngIf="searchType === 'visitdate'" [disabled]="isSearchValueDisabled" type="date" id="searchValue" [(ngModel)]="searchValue"
-            (change)="searchVisits()" placeholder="Search by Visit Date" class="form-control" />
+            (change)="searchVisits('','','UI')" placeholder="Search by Visit Date" class="form-control" />
     
         <!-- Text input for other search types -->
         <input *ngIf="searchType !== 'visitdate'" [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue"
-            (keydown.enter)="searchVisits()" placeholder="Search Value" class="form-control" />
+            (keydown.enter)="searchVisits('','','UI')" placeholder="Search Value" class="form-control" />
     </div>
 
       <!-- Search and Clear buttons -->
       <div class="col-md-3 col-sm-6 mb-2 d-flex justify-content-center">
-        <button [disabled]="isSearchButtonDisabled" type="button" (click)="searchVisits()" class="btn btn-primary">
+        <button [disabled]="isSearchButtonDisabled" type="button" (click)="searchVisits('','','UI')" class="btn btn-primary">
           <i class="fa fa-search"></i> Search
         </button>
         <button type="button" (click)="clearSearchCustomers()" class="btn btn-secondary ml-3">

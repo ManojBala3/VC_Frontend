@@ -44,6 +44,9 @@ export class ViewVisitComponent implements OnInit {
   clearSearchCustomers(){
     this.searchType = "searchType";
     this.searchValue = "";
+    this.currentPageNumber = 1;
+    this.limit=10;
+    this.offset= 0;
     this.getAllCustomers();
     this.isSearchValueDisabled = true;
     this.isSearchButtonDisabled = true;
@@ -101,8 +104,9 @@ export class ViewVisitComponent implements OnInit {
 )
   }
 
-   searchVisits(limit?: any, offset?: any)
+   searchVisits(limit?: any, offset?: any,source?:any)
   {
+    console.log('source ' + source);
     this.loader.show();
     if(this.searchValue==null || this.searchValue=='')
     {
@@ -112,6 +116,8 @@ export class ViewVisitComponent implements OnInit {
     }
     this.offset = offset ? offset : 0;
     this.limit = limit ? limit : 10;
+    if(source =='UI')
+      this.currentPageNumber = 1;
     let savedData: any[];
     let name;
     let phonenumber;
@@ -150,10 +156,10 @@ export class ViewVisitComponent implements OnInit {
             this.ordersList = savedData;
             this.totalOrders =(<any>response).totalcount;
             this.toastr.success(this.searchType+' search success', 'Success!');
-            this.searchType='searchType';
-            this.searchValue='';
-            this.isSearchValueDisabled = true;
-            this.isSearchButtonDisabled = true;
+           // this.searchType='searchType';
+           // this.searchValue='';
+           // this.isSearchValueDisabled = true;
+            //this.isSearchButtonDisabled = true;
             this.loader.hide();
         }
         else{
@@ -245,7 +251,7 @@ export class ViewVisitComponent implements OnInit {
     console.log(event);
     this.offset = (event-1)*10; 
     if(this.searchValue && this.searchValue.trim()){
-      this.searchVisits(this.limit, this.offset);
+      this.searchVisits(this.limit, this.offset,"pagination");
       }else{
         this.getAllCustomersPagination(this.limit, this.offset);
       }

@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, finalize, tap, throwError } from 'rxjs';
 import { LoaderService } from './loader.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor{
 
   private totalRequests = 0;
   constructor(
-    private loadingService: LoaderService,private router: Router
+    private loadingService: LoaderService,private router: Router,private toastr: ToastrService
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -26,12 +27,11 @@ export class TokenInterceptorService implements HttpInterceptor{
       catchError((error: HttpErrorResponse) => {
         console.log('error',error)
         if (error.status === 401) {
-          // Handle 401 error - Unauthorized
+          this.toastr.clear
           console.error('Unauthorized (401) - Redirecting to login');
-
-          // Example: Call your logout method or redirect to login page
-
+          this.toastr.error("Session Expired ! Kindly login in again");
           this.router.navigate(['/']);
+          
         }
 
         // Re-throw the error so that it can be handled elsewhere

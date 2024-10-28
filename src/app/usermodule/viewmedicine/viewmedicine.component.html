@@ -24,12 +24,12 @@
 
     <!-- Search Input -->
     <div class="col-2">
-      <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue" placeholder="Search Value" class="form-control" (keydown.enter)="searchItems()"/>
+      <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue" placeholder="Search Value" class="form-control" (keydown.enter)="searchItems('','','UI')"/>
     </div>
 
     <!-- Search and Clear Buttons -->
     <div class="col-3">
-      <button [disabled]="isSearchButtonDisabled" type="button" (click)="searchItems()" class="btn btn-primary me-2">
+      <button [disabled]="isSearchButtonDisabled" type="button" (click)="searchItems('','','UI')" class="btn btn-primary me-2">
         Search <i class="fa fa-search"></i> 
       </button>
       <button type="button" (click)="clearSearchCustomers()" class="btn btn-secondary me-2">
@@ -37,7 +37,7 @@
       </button>
     </div>
     <div class="col-2 ">
-      <button id="totalCustomers" class="btn btn-info" type="button" name="totalCustomers"> User Count: <span
+      <button id="totalCustomers" class="btn btn-info" type="button" name="totalCustomers"> Medicine Count: <span
           class="badge rounded-pill text-bg-dark">{{totalItemsCount}} </span></button>
     </div>
     

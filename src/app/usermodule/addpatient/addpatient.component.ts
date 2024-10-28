@@ -195,7 +195,8 @@ export class AddPatientComponent implements OnInit {
   }
   
 
-  searchCustomers(limit?: any, offset?: any) {
+  searchCustomers(limit?: any, offset?: any,source?: any) {
+    console.log('source ' + source);
     this.loader.show();
     this.offset = offset ? offset : 0;
     this.limit = limit ? limit : 10;
@@ -204,6 +205,8 @@ export class AddPatientComponent implements OnInit {
     var namefield;
     var phonenumber;
     var patientid;
+    if(source=='UI')
+      this.currentPageNumber=1;
     if(this.searchType=="name")
     {
       namefield=this.searchValue;
@@ -269,6 +272,7 @@ export class AddPatientComponent implements OnInit {
   clearSearchCustomers() {
     this.searchType = 'searchType';
     this.searchValue = '';
+    this.currentPageNumber=1;
     this.getAllCustomers();
     this.isSearchValueDisabled = true;
     this.isSearchButtonDisabled = true;
@@ -365,7 +369,7 @@ export class AddPatientComponent implements OnInit {
     console.log(event);
     this.offset = (event-1)*10; 
     if(this.searchValue && this.searchValue.trim()){
-    this.searchCustomers(this.limit, this.offset);
+    this.searchCustomers(this.limit, this.offset,"Pagination");
     }else{
       this.getAllCustomersPagination(this.limit, this.offset);
     }

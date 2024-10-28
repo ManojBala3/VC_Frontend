@@ -45,9 +45,10 @@ export class ViewMedicineComponent implements OnInit {
     }
   }
 
-  searchItems(limit?: any, offset?: any){
+  searchItems(limit?: any, offset?: any,source?:any){
     this.offset = offset ? offset : 0;
     this.limit = limit ? limit : 10;
+  
     let savedData: any[];
     let data={
       name:this.searchValue
@@ -65,6 +66,8 @@ export class ViewMedicineComponent implements OnInit {
           console.log('Value Received ' + response);
           console.log(response)
           savedData = (<any>response).medresponse;
+          if(source=='UI')
+            this.currentPageNumber=1;
           this.itemsList = savedData;
           this.totalItemsCount =(<any>response).totalcount;
           this.loader.hide();
@@ -130,6 +133,7 @@ export class ViewMedicineComponent implements OnInit {
     this.searchType = "searchType";
     this.searchValue = "";
     this.getAllItems();
+    this.currentPageNumber = 1;
     this.isSearchValueDisabled = true;
     this.isSearchButtonDisabled = true;
   }
@@ -171,7 +175,7 @@ getAllItemsPagination(limit: any, offset: any) {
     console.log(event);
     this.offset = (event-1)*10; 
     if(this.searchValue && this.searchValue.trim()){
-        this.searchItems(this.limit, this.offset);
+        this.searchItems(this.limit, this.offset,"pagination");
       }else{
         this.getAllItemsPagination(this.limit, this.offset);
       }
