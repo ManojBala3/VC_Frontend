@@ -1,3 +1,4 @@
+<div class="main-content">
 <form [formGroup]="loginform" class="login-form">
     <h3 class="form-title">Login Here</h3>
 
@@ -9,6 +10,7 @@
             placeholder="User Name" 
             formControlName="email" 
             (keydown.space)="$event.preventDefault();" 
+            (keydown.enter)="loginbtn(user.value, pass.value)" 
             required #user
             class="form-control"
         />
@@ -24,6 +26,7 @@
             id="password" 
             placeholder="Password" 
             formControlName="password" 
+            (keydown.enter)="loginbtn(user.value, pass.value)" 
             (keydown.space)="$event.preventDefault();" 
             required  #pass
             class="form-control"
@@ -48,12 +51,7 @@
         <label for="error" class="error-text">{{errormsg}}</label>
     </div>
 
-    <ngx-spinner 
-        bdColor="rgba(51, 51, 51, 0.8)" 
-        size="default" 
-        type="ball-spin-clockwise" 
-        class="spinner"
-    >
-        <p style="color: white">Loading...</p>
-    </ngx-spinner>
+
 </form>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  <p style="color: white">loading...</p>  </ngx-spinner>
+</div>

@@ -46,6 +46,7 @@ export class ViewqueueComponent implements OnInit {
     this.searchType = "searchType";
     this.searchValue = "";
     this.getAllCustomers();
+    this.currentPageNumber = 1;
     this.isSearchValueDisabled = true;
     this.isSearchButtonDisabled = true;
   }
@@ -102,7 +103,7 @@ export class ViewqueueComponent implements OnInit {
 )
   }
 
-  searchVisits(limit?: any, offset?: any)
+  searchVisits(limit?: any, offset?: any,source?: any)
   {
     this.loader.show();
     if(this.searchValue==null || this.searchValue=='')
@@ -141,7 +142,8 @@ export class ViewqueueComponent implements OnInit {
         {
             console.log('Value Received ' + response);
             savedData = (<any>response).common;
-            
+            if(source=='UI')
+              this.currentPageNumber=1;
             this.ordersList = savedData;
             this.totalOrders =(<any>response).totalcount;
             this.toastr.success(this.searchType+' search success', 'Success!');
@@ -149,7 +151,7 @@ export class ViewqueueComponent implements OnInit {
             this.searchValue='';
             this.isSearchValueDisabled = true;
             this.isSearchButtonDisabled = true;
-            this.loader.hide();
+            this.loader.hide(); 
         }
         else{
           savedData = [];
@@ -219,7 +221,7 @@ export class ViewqueueComponent implements OnInit {
     console.log(event);
     this.offset = (event-1)*10; 
     if(this.searchValue && this.searchValue.trim()){
-      this.searchVisits(this.limit, this.offset);
+      this.searchVisits(this.limit, this.offset,'pagination');
       }else{
         this.getAllCustomersPagination(this.limit, this.offset);
       }

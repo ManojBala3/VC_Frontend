@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
 
   loginbtn(username:String,password:String)
   {
+    
     this.showerror=false;
     console.log("username   "+username);
     if(username=="")
@@ -53,10 +54,11 @@ export class LoginComponent implements OnInit {
       this.errormsg="Password cannot be empty";
       return;
     }
+    this.loader.show();
     let data={"username":username,"userpassword":password};
     console.log(data)
     this.httpservice.checklogin(data).subscribe(response=>{
-      this.loader.show();
+      
       console.log("response",response);
       let data:any=response;
       let common:any=data['common'];

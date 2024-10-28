@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -10,7 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),NgxSpinnerModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

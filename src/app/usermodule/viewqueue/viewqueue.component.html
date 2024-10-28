@@ -33,12 +33,12 @@
         </select>
       </div>
       <div class="col-2">
-        <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue" (keydown.enter)="searchVisits()"
+        <input [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue" (keydown.enter)="searchVisits('','','UI')"
           placeholder="Search Value" class="form-control" />
       </div>
 
       <div class="col-3">
-        <button [disabled]="isSearchButtonDisabled" type="button" (click)="searchVisits()" class="btn btn-primary">
+        <button [disabled]="isSearchButtonDisabled" type="button" (click)="searchVisits('','','UI')" class="btn btn-primary">
           <span> <i class="fa fa-search"></i></span> Search </button>
           &nbsp;&nbsp;&nbsp;
         <button type="button" (click)="clearSearchCustomers()" class="btn btn-secondary"> <span> <i

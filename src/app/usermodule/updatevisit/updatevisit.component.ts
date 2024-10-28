@@ -21,7 +21,7 @@ import { SharingserviceService } from 'src/app/commonservices/sharingservice.ser
     changeDetection: ChangeDetectionStrategy.OnPush
   })
 export class UpdateVisitComponent implements OnInit {
-  updatevisit = 'updatevisit'
+  updatevisit = 'viewvisit'
   customerForm: UntypedFormGroup
   selectedState: any
   inputDistrict: any
