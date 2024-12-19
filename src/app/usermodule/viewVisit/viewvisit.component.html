@@ -32,15 +32,25 @@
       </div>
 
       <!-- Input for search value -->
-       <div class="col-md-2 col-sm-4 mb-2">
-        <!-- Date picker input for visit date -->
-        <input *ngIf="searchType === 'visitdate'" [disabled]="isSearchValueDisabled" type="date" id="searchValue" [(ngModel)]="searchValue"
-            (change)="searchVisits('','','UI')" placeholder="Search by Visit Date" class="form-control" />
+      <div class="col-md-2 col-sm-4 mb-2">
+        <!-- Date picker input for visit date in a single row -->
+        <div *ngIf="searchType === 'visitdate'" class="d-flex align-items-center">
+            <input 
+                [disabled]="isSearchValueDisabled" 
+                [(ngModel)]="searchValue" 
+                ngxDaterangepickerMd 
+                [maxDate]="maxDate" 
+                class="form-control mx-2" 
+                placeholder="Select Date Range"
+                (dateRangeSelected)="searchVisits('','','UI')"
+            />
+        </div>
     
         <!-- Text input for other search types -->
         <input *ngIf="searchType !== 'visitdate'" [disabled]="isSearchValueDisabled" type="search" id="searchValue" [(ngModel)]="searchValue"
             (keydown.enter)="searchVisits('','','UI')" placeholder="Search Value" class="form-control" />
     </div>
+    
 
       <!-- Search and Clear buttons -->
       <div class="col-md-3 col-sm-6 mb-2 d-flex justify-content-center">

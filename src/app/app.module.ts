@@ -19,6 +19,7 @@ import { UpdatePatientComponent } from './usermodule/updatepatient/updatepatient
 import { ToastrModule } from 'ngx-toastr';
 import { SpinnerComponent } from './commonservices/spinner/spinner.component';
 import { LoadingInterceptor } from './commonservices/loading.interceptor';
+import { LocaleService, NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { LoadingInterceptor } from './commonservices/loading.interceptor';
      NgxPaginationModule,
      BrowserAnimationsModule,
      NgxPaginationModule,
+     NgxDaterangepickerMd.forRoot(),
      ToastrModule.forRoot({
       timeOut: 3500,
       positionClass: 'toast-bottom-center',
@@ -48,7 +50,7 @@ import { LoadingInterceptor } from './commonservices/loading.interceptor';
 }),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }  ],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true } ,LocaleService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { SharingserviceService } from 'src/app/commonservices/sharingservice.service';
 import { HttpserviceService } from 'src/app/httpservice.service';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-viewvisit',
@@ -22,9 +24,10 @@ export class ViewVisitComponent implements OnInit {
   limit: any = 10;
   offset: any = 0;
   isAdmin:boolean=false;
+  maxDate = dayjs();
 
   constructor(private router: Router, private httpservice:HttpserviceService, private toastr: ToastrService,private loader:NgxSpinnerService
-    ,private sharingservice: SharingserviceService) {
+    ,private sharingservice: SharingserviceService,private datePipe: DatePipe) {
     
    }
 
@@ -119,10 +122,11 @@ export class ViewVisitComponent implements OnInit {
     if(source =='UI')
       this.currentPageNumber = 1;
     let savedData: any[];
-    let name;
-    let phonenumber;
-    let customerid;
-    let visitdate;
+    let name=null;
+    let phonenumber=null;
+    let customerid=null;
+    let startdate=null;
+    let enddate=null;
     if(this.searchType=='name')
     {
         name=this.searchValue;
@@ -136,14 +140,19 @@ export class ViewVisitComponent implements OnInit {
       customerid=this.searchValue
     }
     if (this.searchType == 'visitdate' && this.searchValue) {
-      const date = new Date(this.searchValue);
-        visitdate = date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+       
+      console.log("date",this.searchValue)
+     
+      startdate=this.datePipe.transform((<any>this.searchValue).startDate, 'yyyy-MM-dd') || '';
+      enddate=this.datePipe.transform((<any>this.searchValue).endDate, 'yyyy-MM-dd') || '';
+
     }
     let data={
       name:name,
       mobilenumber:phonenumber,
       custid:customerid,
-      visitdate: visitdate
+      startdate: startdate,
+      enddate: enddate
     }
     this.httpservice.searchvisits(data, this.limit, this.offset).subscribe(
       response => {
@@ -154,10 +163,30 @@ export class ViewVisitComponent implements OnInit {
             savedData = (<any>response).common;
             
             this.ordersList = savedData;
+            for(let data of this.ordersList)
+              {
+               var value="";
+               if(data['age_year']!=null && data['age_year']!=0)
+               {
+                value=value+data['age_year']+'Y'+" ";
+               }
+               if(data['age_month']!=null && data['age_month']!=0)
+               {
+                value=value+data['age_month']+'M'+" ";
+               }
+               if(data['age_week']!=null && data['age_week']!=0)
+               {
+                value=value+data['age_week']+'W'+" ";
+               }
+               if(data['age_day']!=null && data['age_day']!=0)
+               {
+                value=value+data['age_day']+'D'+" ";
+               }
+               data['age']=value;
+              }
             this.totalOrders =(<any>response).totalcount;
             this.toastr.success(this.searchType+' search success', 'Success!');
            // this.searchType='searchType';
-           // this.searchValue='';
            // this.isSearchValueDisabled = true;
             //this.isSearchButtonDisabled = true;
             this.loader.hide();
@@ -238,6 +267,7 @@ export class ViewVisitComponent implements OnInit {
 
 
   onSearchTypeChange(event: any){
+    this.searchValue='';
     if(event.target.value != "searchType"){
     this.isSearchValueDisabled = false;
     this.isSearchButtonDisabled = false;
@@ -250,7 +280,7 @@ export class ViewVisitComponent implements OnInit {
   onViewCustomerPaginationPageChange(event: any){
     console.log(event);
     this.offset = (event-1)*10; 
-    if(this.searchValue && this.searchValue.trim()){
+    if(this.searchValue){
       this.searchVisits(this.limit, this.offset,"pagination");
       }else{
         this.getAllCustomersPagination(this.limit, this.offset);

@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, InjectionToken, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { UsermoduleRoutingModule } from './usermodule-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -21,6 +21,18 @@ import { ViewqueueComponent } from './viewqueue/viewqueue.component';
 import { ViewuserComponent } from './viewuser/viewuser.component';
 import { AdduserComponent } from './adduser/adduser.component';
 import { DateFormatPipe } from './date-format.pipe';
+import { LocaleService, NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+
+export const DATERANGEPICKER_CONFIG = new InjectionToken('daterangepicker.config', {
+  providedIn: 'root',
+  factory: () => ({
+    // Provide default or custom configurations here
+    locale: {
+      format: 'YYYY-MM-DD', // Example of custom format
+    },
+    // Additional options can be set here as needed
+  })
+});
 
 @NgModule({
   declarations: 
@@ -32,10 +44,11 @@ import { DateFormatPipe } from './date-format.pipe';
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule ,
+    NgxDaterangepickerMd.forRoot(),
     NgxPaginationModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
-  providers: [DatePipe
+  providers: [DatePipe,LocaleService, { provide: DATERANGEPICKER_CONFIG, useValue: { locale: { format: 'YYYY-MM-DD' } } }
     
   ],
 })

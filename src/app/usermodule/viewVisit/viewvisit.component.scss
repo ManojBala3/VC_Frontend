@@ -264,3 +264,6 @@ body {
   }
 }
 
+ ::ng-deep .md-drppicker.ltr .calendar.right .calendar-table {
+  display: none !important;
+}

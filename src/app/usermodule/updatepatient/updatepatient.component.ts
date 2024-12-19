@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./updatepatient.component.scss']
 })
 export class UpdatePatientComponent implements OnInit {
-  addpatient = 'addcpatient'
+  addpatient = 'addpatient'
   customerForm: UntypedFormGroup;
   selectedState: any
   inputDistrict: any

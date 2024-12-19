@@ -56,13 +56,15 @@ export class AddVisitComponent implements OnInit {
   isAdmin: boolean = false;
 
   statushealth = ['Stable', 'Unstable','Others'];
-  vitalsdropdown=['Stable','HR: bpm / SPO2: % / T –  F / BP:  mmhg','others']
+  vitalsdropdown=['Stable','PR: bpm / SPO2: % / T –  F / BP:  mmhg','others']
   entdropdown = ['Clear','Others'];
   seOptions = ['CVS/RS/PA/CNS - Normal','Others'];
   genderdropdown = ['Boy', 'Girl'];
-  med=['ml','drops','tablet','others']
+  med=['ml','drops','puffs','tablet','others']
   itemNameList = []; 
-  advicedropdown=['Plenty of warm fluids & Salt water gargling','Plenty of warm fluids & Bland diet','Plenty of warm fluids']; 
+  advicedropdown=['Plenty of warm fluids & Salt water gargling','Plenty of warm fluids & Bland diet','Plenty of warm fluids','Direct breast feeds & Warmth'
+    ,'Eye hygiene as advised'
+  ]; 
   medicineothersdd=['For local application once  a day for  days',
                     'For local application twice a day for  days',
                     'For local application thrice a day for days',
@@ -70,7 +72,8 @@ export class AddVisitComponent implements OnInit {
                     ' ml if temperature > 99.4 F with 6 hours gap',
                     '0.5 ml intramuscular stat given',
                     '0.5 ml subcutaneous stat given',
-                    '2 ml oral stat given'
+                    '2 ml oral stat given',
+                    '2 drops in both nostrils as needed'
                     ];
   selectedItemName: any = "selectItemName";
 

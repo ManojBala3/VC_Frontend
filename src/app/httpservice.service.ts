@@ -12,12 +12,12 @@ export class HttpserviceService {
 
 
   public local="http://localhost:8080/venbaclinic";
-  public server="https://backend.nativefoodsindia.com/venbaclinic";
-  public omsurl = this.local;
+  public server="https://backend.iwoodtechnologies.com/venbaclinic";
+  public omsurl = this.server;
 
   constructor(private http: HttpClient ) { }
 
-  private _refreshrequired = new Subject<void>();
+  private _refreshrequired = new Subject<void>();  
 
   get Refreshrequired() {
     return this._refreshrequired;
